@@ -1,0 +1,90 @@
+<div ng-controller="activityInfoCtrl">
+	<!--===top  顶部===-->
+	<div class="top">
+		<div ui-sref="schoolActivity({schoolId:schoolInfo.schoolId})"
+			class="return">
+			<!--  <div ng-click="back()"  class="return"> -->
+			<span>返回</span>
+		</div>
+		<div class="title">活动</div>
+		<div class="login">
+			<span></span>
+		</div>
+	</div>
+	<div style="height:50px;"></div>
+	<!--公告详情-->
+	<div class="magn border1 bor-gray1 bgd-white pad bd-r2 pad-b-6">
+		<div class="magn border-b-s1 bor-gray1 FD">
+			<div class="tx-l line-H2">
+				<div class="tx-c ft-4 line-H3" ng-bind="activityInfo.title"></div>
+				<div class="ft-2 tx-gray">
+					浏览：<span ng-bind="activityInfo.viewCount">21</span>
+					<span class="pad-lr-3" ng-bind="activityInfo.publishDate"></span>
+				</div>
+				<div ng-if="activityInfo.type == 1" class="ft-2 tx-gray">
+					截止日期：{{activityInfo.endDate}}<span class="pad-lr-3 tx-red"
+						ng-bind="activityInfo.endDate | checkdateFilter"></span>
+				</div>
+				<div class="ft-2 tx-gray">
+					<span ng-bind="activityInfo.deptName"></span> <span class="magn-l"
+						ng-bind="activityInfo.schoolName"></span>
+				</div>
+				<div class="ft-2 tx-gray"
+					ng-bind-html="activityInfo.content | trustHtml"></div>
+			</div>
+			<!-- <div class="fudong-r col-fg-3 tx-r">
+				<button type="button" style="display:none;"
+					class="btn-xm btn-info magn">&nbsp;收&nbsp;藏&nbsp;</button>
+			</div> -->
+		</div>
+		<div class="head1 line-H2" style="margin-bottom:20px;">
+			<ul class="ft-1">
+				<li ng-repeat="v in activityInfo.voteList">
+					<div class="voteimg">
+						<img ng-if="v.optionImg != null && v.optionImg != ''" ng-src="{{v.optionImg}}" err-src="images/noimage.png"/>
+						<img ng-if="v.optionImg == null || v.optionImg == ''" src="images/noimage.png"/>
+					</div>
+					<div>
+						<span ng-bind="v.title | titleFilter:'6'"></span><a
+							class="xiaos tx-blue" ng-click="showOptionDetail(v)">【详情】</a>
+					</div>
+					<div class="magn-tb" ng-show="isVote">
+						<button ng-if="userVote == true && v.isVote == true"
+							class="btn btn-xm btn-activity-vote" style="width:73px;"
+							disabled="disabled">已投</button>
+						<button
+							ng-if="userVote == false && (v.isVote == false || v.isVote == null)"
+							ng-click="doVote(activityInfo.id,v.id)"
+							class="btn btn-xm btn-default" style="width:73px;">投票</button>
+						<button
+							ng-if="userVote == true && (v.isVote == false || v.isVote == null)"
+							class="btn btn-xm btn-default" style="width:73px;"
+							disabled="disabled">已参与</button>
+					</div>
+					<div class="tx-gray" ng-bind="v.voteCount | voteCountFilter"></div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- 详情dialog -->
+	<div id="voteDetailModel" class="modal fade bs-example-modal-sm">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="vTitle"></h4>
+				</div>
+				<div class="modal-body" id="vContent"></div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.RecruitinfoMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Recruitinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="publishDate" property="publishDate" jdbcType="CHAR" />
+    <result column="publishUser" property="publishUser" jdbcType="INTEGER" />
+    <result column="userName" property="userName" jdbcType="VARCHAR" />
+    <result column="viewCount" property="viewCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.Recruitinfo" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, title, publishDate, publishUser, userName, viewCount
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from recruitinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from recruitinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Recruitinfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into recruitinfo (schoolId, title, publishDate, 
+      publishUser, userName, viewCount, 
+      content)
+    values (#{schoolId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{publishDate,jdbcType=CHAR}, 
+      #{publishUser,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Recruitinfo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into recruitinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="publishDate != null" >
+        publishDate,
+      </if>
+      <if test="publishUser != null" >
+        publishUser,
+      </if>
+      <if test="userName != null" >
+        userName,
+      </if>
+      <if test="viewCount != null" >
+        viewCount,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publishUser != null" >
+        #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Recruitinfo" >
+    update recruitinfo
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publishDate = #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publishUser != null" >
+        publishUser = #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null" >
+        userName = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.Recruitinfo" >
+    update recruitinfo
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      userName = #{userName,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Recruitinfo" >
+    update recruitinfo
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      userName = #{userName,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+   <!-- 获取本学校的招聘资讯总条数 -->
+  <select id="getRecruitInfoCount" parameterType="com.ugfind.model.NewsPageConfig" resultType="Integer">
+  		select count(id) from recruitinfo where schoolId = #{schoolId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页获取本学校的招聘资讯列表 -->
+  <select id="getRecruitInfoBypage" parameterType="com.ugfind.model.NewsPageConfig" resultMap="ResultMapWithBLOBs">
+  		select 
+  			*
+  		from recruitinfo 
+  		where schoolId = #{schoolId,jdbcType=INTEGER}
+  		ORDER BY id DESC LIMIT #{currentIndex},#{itemsPerPage}	
+  </select>
+  
+  <!-- 修改阅读次数 -->
+   <update id="updateRecruitInfoViewCount" parameterType="java.lang.Integer">
+    update recruitinfo
+    set viewCount = viewCount + 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

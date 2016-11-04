@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.ConsultMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Consult" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="question" property="question" jdbcType="VARCHAR" />
+    <result column="answer" property="answer" jdbcType="VARCHAR" />
+    <result column="askTime" property="askTime" jdbcType="TIMESTAMP" />
+    <result column="replyTime" property="replyTime" jdbcType="TIMESTAMP" />
+    <result column="askUser" property="askUser" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, question, answer, askTime, replyTime, askUser, deptId, schoolId,telphone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from consult
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from consult
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Consult" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into consult (question, answer, 
+      askTime, replyTime, askUser, 
+      deptId, schoolId)
+    values (#{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR}, 
+      #{askTime,jdbcType=TIMESTAMP}, #{replyTime,jdbcType=TIMESTAMP}, #{askUser,jdbcType=INTEGER}, 
+      #{deptId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Consult" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into consult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="question != null" >
+        question,
+      </if>
+      <if test="answer != null" >
+        answer,
+      </if>
+      <if test="askTime != null" >
+        askTime,
+      </if>
+      <if test="replyTime != null" >
+        replyTime,
+      </if>
+      <if test="askUser != null" >
+        askUser,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="question != null" >
+        #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="askTime != null" >
+        #{askTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyTime != null" >
+        #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="askUser != null" >
+        #{askUser,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Consult" >
+    update consult
+    <set >
+      <if test="question != null" >
+        question = #{question,jdbcType=VARCHAR},
+      </if>
+      <if test="answer != null" >
+        answer = #{answer,jdbcType=VARCHAR},
+      </if>
+      <if test="askTime != null" >
+        askTime = #{askTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyTime != null" >
+        replyTime = #{replyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="askUser != null" >
+        askUser = #{askUser,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Consult" >
+    update consult
+    set question = #{question,jdbcType=VARCHAR},
+      answer = #{answer,jdbcType=VARCHAR},
+      askTime = #{askTime,jdbcType=TIMESTAMP},
+      replyTime = #{replyTime,jdbcType=TIMESTAMP},
+      askUser = #{askUser,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      telphone = #{telphone,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 咨询resultMap -->
+  <resultMap type="com.ugfind.model.Consult" id="ConsultResultMap" extends="BaseResultMap">
+  	<result column="nickName" property="nickName" jdbcType="VARCHAR"/>
+  </resultMap>
+  <!-- 获取本部门所有的咨询 -->
+  <select id="getMyDeptConsult" parameterType="com.ugfind.model.ConsultPage" resultMap="ConsultResultMap">
+  		SELECT
+			a.id id,
+			a.question question,
+			a.askUser askUserId,
+			a.answer answer,
+			a.askTime askTime,
+			a.replyTime replyTime,
+			a.telphone telphone,
+			b.nickName nickName
+			FROM
+			consult a
+		left join user b ON a.askUser = b.id
+		WHERE
+			a.deptId = #{deptId,jdbcType=INTEGER} and a.schoolId = #{schoolId,jdbcType=INTEGER}
+		ORDER BY a.id DESC LIMIT #{currentPage},#{itemsPerPage}			
+  </select>
+  <!-- 获取咨询数量 -->
+  <select id="getConsultCount" parameterType="com.ugfind.model.ConsultPage" resultType="java.lang.Integer">
+  	SELECT 
+  		count(id) num from consult
+  	WHERE
+		deptId = #{deptId,jdbcType=INTEGER} and schoolId = #{schoolId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="getMyconsult" parameterType="int" resultType="com.ugfind.model.Consult" >
+  SELECT * from consult where askUser = #{userId} order by id DESC
+  </select>
+  
+  <select id="getConsultInfo" parameterType="int" resultType="com.ugfind.model.Consult" >
+  	 SELECT
+			a.id id,
+			a.question question,
+			a.askUser askUserId,
+			a.answer answer,
+			a.telphone telphone,
+			a.askTime askTime,
+			a.replyTime replyTime,
+			b.nickName nickName
+			FROM
+			consult a
+		left JOIN user b ON a.askUser = b.id
+		WHERE
+			a.id = #{id}
+  </select>
+</mapper>

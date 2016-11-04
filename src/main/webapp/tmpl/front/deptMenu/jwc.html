@@ -1,0 +1,22 @@
+<!-- 教务处 deptId : 2-->
+<div ng-controller="jwcMenuCtrl">
+  <div ng-hide="needOpened" class="pad-lr-1 tx-r tx-gray">
+    该部门暂未开通，
+    <a class="tx-blue" ui-sref="subscribe">申请开通</a>
+  </div>
+  <div class="head" style="margin-bottom:20px; overflow:hidden">
+    <ul>
+      <a>
+        <li ui-sref="lb_news({schoolId:schoolInfo.schoolId})">
+          <div class="icon">
+            <img src="images/tb_03.png"></div>
+          <p>公告</p>
+        </li>
+      </a>
+      <div class="clear"></div>
+    </ul>
+    <a ng-hide="needOpened" ui-sref="subscribe">
+      <button type="button" class="btn btn-warning magn-tb1 ft-1">申请开通</button>
+    </a>
+  </div>
+</div>

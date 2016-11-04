@@ -1,0 +1,22 @@
+<div ng-controller="policyCtrl">
+  <div ui-sref="index" class="top">
+     <div class="return">
+        <span>返回</span>
+     </div>
+     <div class="title">入馆须知</div>
+     <div class="login">
+         <span></span>
+     </div>
+  </div>
+    <!--===top  顶部===-->
+    <div class="FD tx-c border-b-s bor-gray bgd-white" style="line-height:50px;font-size:16px; position:fixed; top:50px; width:100%;">
+        <div ui-sref="policy.introduction" ui-sref-active="xiaos tx-blue border-b-s2 bor-018" class="col-fg-1-3">本馆简介</div>
+        <div ui-sref="policy.openTime" ui-sref-active="xiaos tx-blue border-b-s2 bor-018" class="col-fg-1-3">开放时间</div>
+        <div ng-click="getRules()" ui-sref="policy.rule" ui-sref-active="xiaos tx-blue border-b-s2 bor-018" class="col-fg-1-3">规章制度</div>
+    </div>
+    <div style="height:100px;"></div>
+
+
+    <div ui-view=""></div>
+
+</div>

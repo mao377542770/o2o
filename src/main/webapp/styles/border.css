@@ -1,0 +1,130 @@
+.border1{
+	border:1px solid;
+}
+.border2{
+	border:10px solid;
+}
+.border3{
+	border:2px solid;
+}
+.border4{
+	border:4px solid;
+}
+.border-d{
+	border:1px dashed;
+}
+.border-gray{
+	border:1px solid #e3e3e3;
+}
+.border-gray1{
+	border:1px solid #ccc;
+}
+.border-t-d{
+	border-top:1px dashed;
+}
+.border-b-d{
+	border-bottom:1px dashed;
+}
+.border-l-d{
+	border-left:1px dashed;
+}
+.border-r-d{
+	border-right:1px dashed;
+}
+.border-t-s{
+	border-top:1px solid;
+}
+.border-b-s{
+	border-bottom:1px solid;
+}
+.border-b-s1{
+	border-bottom:3px solid;
+}
+.border-b-s2{
+	border-bottom:2px solid;
+}
+.border-l-s{
+	border-left:1px solid;
+}
+.border-r-s{
+	border-right:1px solid;
+}
+.border-r-dt{
+	border-right:1px dotted;
+}
+.border-t-dt{
+	border-top:1px dotted;
+}
+.border-b-dt{
+	border-bottom:1px dotted;
+}
+.border-l-dt{
+	border-left:1px dotted;
+}
+.bd-r{
+	border-radius:5px;
+}
+.bd-r2{
+	border-radius:3px;
+}
+.bd-r-t{
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+}
+.bor-Orange{
+	border-color:#ffdcd3;
+}
+.bor-Orange1{
+	border-color:#EE491F;
+}
+.bor-Orange2{
+	border-color:#ffc6b7;
+}
+.bor-gray{
+	border-color:#ccc;
+}
+.bor-gray1{
+	border-color:#eee;
+}
+.bor-gray2{
+	border-color:#E1E1E1;
+}
+.bor-gray3{
+	border-color:#999;
+}
+
+
+.bor-green{
+	border-color:#5cb85c;
+}
+.bor-green1{
+	border-color:#093;
+}
+.bor-069{
+	border-color:#0697da;
+}
+.bor-edf{
+	border-color:#edf1f6;
+}
+.bor-022{
+	border-color:#022d5b;
+}
+.bor-primary{
+	border-color:#337ab7;
+}
+/*会室预约*/
+.time{border-bottom:1px solid rgb(239,239,239);}
+.date{border:1px dashed blue;}
+.room_1,.room_2{border-bottom:1px solid rgb(239,239,239);}
+.room_name{border:1px solid rgb(192,192,192);}
+.book{border:1px dashed #FFA953;width:90px;}
+.detail{border:1px dashed blue;width:90px;}
+.end{border:1px solid rgb(239,239,239);}
+.end .line2{border-bottom:1px solid rgb(239,239,239);}
+
+/*老师认证*/
+.state .block{border:1px dashed blue;}
+.items1{border:1px dashed #FF8000;}
+.items2{border:1px dashed #42CAEC;}
+.table{border-collapse:collapse;}
+.content1s,.date1{border:1px solid rgb(236,236,236);}

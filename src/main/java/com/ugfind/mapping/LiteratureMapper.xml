@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.LiteratureMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Literature" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="literatureUrl" property="literatureUrl" jdbcType="VARCHAR" />
+    <result column="literatureType" property="literatureType" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.Literature" extends="BaseResultMap" >
+    <result column="abst" property="abst" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, literatureUrl, literatureType, schoolId
+  </sql>
+  <sql id="Blob_Column_List" >
+    abst
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from literature
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from literature
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Literature" >
+    insert into literature (name, literatureUrl, 
+      literatureType, schoolId, abst
+      )
+    values (#{name,jdbcType=VARCHAR}, #{literatureUrl,jdbcType=VARCHAR}, 
+      #{literatureType,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{abst,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Literature" useGeneratedKeys="true" keyProperty="id">
+    insert into literature
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="literatureUrl != null" >
+        literatureUrl,
+      </if>
+      <if test="literatureType != null" >
+        literatureType,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="abst != null" >
+        abst,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureUrl != null" >
+        #{literatureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureType != null" >
+        #{literatureType,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="abst != null" >
+        #{abst,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Literature" >
+    update literature
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureUrl != null" >
+        literatureUrl = #{literatureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="literatureType != null" >
+        literatureType = #{literatureType,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="abst != null" >
+        abst = #{abst,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.Literature" >
+    update literature
+    set name = #{name,jdbcType=VARCHAR},
+      literatureUrl = #{literatureUrl,jdbcType=VARCHAR},
+      literatureType = #{literatureType,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      abst = #{abst,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Literature" >
+    update literature
+    set name = #{name,jdbcType=VARCHAR},
+      literatureUrl = #{literatureUrl,jdbcType=VARCHAR},
+      literatureType = #{literatureType,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 按类型获取条数 -->
+  <select id="getLiteratureCount" parameterType="com.ugfind.model.LiteratureConfig" resultType="Integer">
+  	select 
+    count(a.id)
+    from literature a
+    inner join literaturetype b
+    on a.literatureType = b.id
+    where a.schoolId = #{schoolId,jdbcType=INTEGER} and literatureType = #{typeId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 按类型获取本校所有的文献 -->
+  <select id="getAllLiterature" parameterType="com.ugfind.model.LiteratureConfig" resultMap="ResultMapWithBLOBs">
+  	select 
+    a.*
+    from literature a
+    inner join literaturetype b
+    on a.literatureType = b.id
+    where a.schoolId = #{schoolId,jdbcType=INTEGER} and literatureType = #{typeId,jdbcType=INTEGER}
+    LIMIT #{currentIndex},#{itemsPerPage}
+  </select>
+</mapper>

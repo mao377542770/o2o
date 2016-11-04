@@ -1,0 +1,184 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="activityCtr">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">校内活动</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="activityMenu">
+			<li role="presentation" id="activityCon"><a ng-click="showActivity()">活动公告</a></li>
+			<li role="presentation" id="voteCon"><a ng-click="showVote()">投票选区</a></li>
+		</ul>
+	</div>
+	<!--活动公告-->
+	<div class=" magn tx-r">
+		<button type="button" class="btn btn-danger btn-sm" style="" ng-click="showAddWin()">&nbsp;添&nbsp;加&nbsp;</button>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="pad" style="margin:4px;">
+			<div class="border-b-d bor-gray2 pad-lr-3 sbhg" ng-repeat="activity in activitys">
+				<div class="row">
+					<div class="col-sm-9 tx-blue xiaos a" ng-click="showContent(activity)" ng-bind="activity.title">XXXX活动</div>
+					<div class="col-sm-1 tx-blue xiaos" ng-click="showEdit(activity)">修改</div>
+					<div class="col-sm-1 tx-gray xiaos" ng-click="deleteAc(activity.id)">删除</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2 tx-gray2"><span>浏览：</span><span ng-bind="activity.viewCount"></span></div>
+					<div class="col-sm-10 tx-gray2"><span>发布时间：</span><span ng-bind="activity.publishDate"></span></div>
+				</div>
+				<div class="row">
+					<div class="col-sm-2 tx-gray2"><span>部门：</span><span ng-bind="activity.deptName"></span></div>
+					<div class="col-sm-10 tx-gray2"><span>截止日期：</span><span ng-bind="activity.endDate"></span></div>
+				</div>
+				
+			</div>
+		</div>
+		<!-- <button ng-click="showAddoption();" style="width: 100px;height: 40px">大按钮</button> -->
+	</div>
+	<!--内容END-->
+	<!--页码-->
+	<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+	<!--页码END-->
+
+	<!--添加公告-->
+	<div class="modal fade" id="addAcModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="acTitle">添加</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="" style="margin-top:10px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">标题：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" placeholder="" ng-model="title" ng-disabled="isEdit" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">发布人：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" placeholder="" ng-model="publishUser" ng-disabled="true"/>
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">截止日期：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" placeholder="" id="endDate" ng-model="endDate" ng-disabled="isEdit" onclick="laydate()"/>
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">内容：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" rows="3" ng-model="content" ng-disabled="isEdit"></textarea>
+								</div>
+							</div>
+							
+							<div class="FD" style="margin-top:10px;" ng-show="isShow && isVote">
+								<div>投票项：</div>
+								<div style="width:28.33%" class="pad-lr-3 fudong-l" ng-repeat="option in options">
+									<img style="width:120px; height:100px;" ng-src="{{option.optionImg | imgSrcFilter}}"/>
+									<div class="pad-lr-3 FD">
+										 <a class="xiaos tx-gray"><span>票数：</span><span ng-bind="option.voteCount"></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveActivity()" ng-disabled="isEdit" id="optionsBtn">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--添加公告End-->
+	
+	<!--投票项-->
+	<div class="modal fade" id="optionsMo" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">添加</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="FD" style="margin-top:10px;">
+							<div style="width:33.33%" class="pad-lr-3 fudong-l" ng-repeat="option in editOption">
+								<img style="width:149px; height:80px;" ng-src="{{option.optionImg | imgSrcFilter}}" />
+								<div class="pad-lr-3 FD">
+									<a class="fudong-l xiaos tx-blue" ng-click="editOptions(option)">编辑</a> 
+									<a class="fudong-r xiaos tx-gray" ng-click="deleteOption(option.id)">删除</a>
+								</div>
+							</div>
+							<div style="width:33.33%" class="pad-lr-3 fudong-l">
+								<button type="button" class="btn btn-danger btn-sm"
+									style="margin-top:50px;" ng-click="addOption()">&nbsp;增&nbsp;加&nbsp;</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--投票项End-->
+	
+	<!--投票项增加，编辑-->
+	<div class="modal fade" id="addOPtion" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="optionLable">添加投票项</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="" style="margin-top:10px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">封面：</div>
+								<div id="imgDiv" style="overflow:hidden">
+								</div>
+								<div id="file-upload-div" style="height: 300px">
+									<form id="file-form" method="post" enctype="multipart/form-data">
+						                <input id="file-0" class="file" name="file"  type="file" multiple data-min-file-count="1">
+						                <br>
+						            </form>
+					            </div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">介绍：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" rows="3" ng-model="optionContent"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" ng-click="addAddoption()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End-->
+</div>
+<!--主内容END-->

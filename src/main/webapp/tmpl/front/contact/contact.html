@@ -1,0 +1,55 @@
+<style type="text/css">
+.mg{
+  margin: 7px auto;
+}
+</style>
+<div ng-controller="contactCtrl"> 
+  <div ui-sref="index" class="top">
+     <div class="return">
+        <span>返回</span>
+     </div>
+     <div class="title">联系我们</div>
+     <div class="login">
+         <span></span>
+     </div>
+  </div>
+  <div style="height:50px;"></div>
+   <h3 class="text-center mg ft-4">请提交资料，我们会尽快与您联系</h3>
+  <div class="container-fluid">
+    <ng-form name="myForm" class="form-horizontal" novalidate>
+      <div class="mg">
+        <label class="col-sm-2 control-label">联系人:</label>
+        <div class="col-sm-10">
+          <input name="name" ng-model="contact.name" type="text" class="form-control" placeholder="请输入联系人" required>
+        </div>
+      </div>
+      <div class="mg" ng-class="{'has-error':myForm.telphone.$error.pattern && myForm.telphone.$dirty}">
+        <label class="col-sm-2 control-label">电话:</label>
+        <div class="col-sm-10">
+          <input name="telphone" ng-model="contact.telphone" type="telphone" class="form-control"  placeholder="请输入手机号" required ng-pattern="/^[1][0-9]{10}$/" maxlength="11">
+        </div>
+      </div>
+      <div class="mg">
+        <label class="col-sm-2 control-label">事由:</label>
+        <div class="col-sm-10">
+          <textarea name="content" ng-model="contact.content" class="form-control" rows="3" required></textarea>
+        </div>
+      </div>
+      <div class="col-sm-offset-2 tx-gray">
+        讯果平台<br />
+         电话：4001 5007 53 <a  href="tel:4001500753" class="tx-blue">（点击拨打）</a><br />
+      </div>
+      
+      <!-- <blockquote class="col-sm-offset-2">
+        <footer>既可管理本单位工作，又可与全国成员单位分享经验</footer>
+        <footer>加入XX大家庭，消除信息壁垒，与成员单位共同经验</footer>
+        <footer>XX采用云服务模式，<span class="text-danger">免费开发</span>，只收取平台使用费</footer>
+      </blockquote> -->
+
+      <div style="margin-top:3%" class="magn">
+          <button ng-click="setContactUs(contact)" ng-disabled="myForm.$invalid" type="submit" class="btn btn-warning" style="width:100%">提交</button>
+      </div>
+    </ng-form>
+  </div>
+
+</div>

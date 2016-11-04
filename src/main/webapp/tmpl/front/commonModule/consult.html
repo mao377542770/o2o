@@ -1,0 +1,41 @@
+<link rel="stylesheet" type="text/css" href="css/general.css" />
+<!--===top  顶部===-->
+<div ng-controller="consultCtrl">
+  <div class="top">
+    <div ui-sref="index" class="return">
+      <span>返回</span>
+    </div>
+    <div class="title">咨询</div>
+    <div ng-click="toConsult()" class="question">
+     <span>提问</span>
+     </div>
+  </div>
+  <div style="height:50px;"></div>
+
+  <div class="FD tx-c bgd-white" ng-init="state = true">
+    <div ng-click="state = true" ng-class="{'tx-blue border-b-s2 bor-018':state}" class="pull-left b_box border-b-s bor-gray">全部</div>
+    <div ng-click="getMyConsult()" ng-class="{'tx-blue border-b-s2 bor-018':!state}" class="pull-left b_box border-b-s bor-gray">我的</div>
+  </div>
+
+  <div ng-show="state" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container-fluid pad-b-6">
+    <div style="margin-top:5px" ui-sref="consultInfo({id:consult.id})" ng-repeat="consult in consultList" class="row xuxian">
+      <div class="pull-left" ng-bind="$index + 1 + '.' + consult.question"></div>
+      <div  class="pull-right">
+        <p class="text-success tx-red" ng-if="consult.answer != '' && consult.answer != null">已回复</p>
+        <p class="text-warning" ng-if="consult.answer == '' || consult.answer == null">待回复</p>
+      </div>
+      <p class="wz clearfix" ng-bind="consult.askTime | date:'yyyy-MM-dd HH:mm:ss' "></p>
+    </div>
+  </div>
+
+  <div ng-hide="state" class="container-fluid">
+    <div style="margin-top:5px" ui-sref="consultInfo({id:consult.id})" ng-repeat="consult in myList" class="row xuxian" >
+      <div style="width:80%;" class="pull-left" ng-bind="$index + 1 + '.' + consult.question" ></div>
+      <div  class="pull-right">
+        <p class="text-success tx-red" ng-if="consult.answer != '' && consult.answer != null">已回复</p>
+        <p class="text-warning" ng-if="consult.answer == null || consult.answer == '' ">待回复</p>
+      </div>
+      <p class="wz clearfix" ng-bind="consult.askTime | date:'yyyy-MM-dd HH:mm:ss' "></p>
+    </div>
+  </div>
+</div>

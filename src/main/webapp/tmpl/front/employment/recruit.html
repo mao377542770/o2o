@@ -1,0 +1,24 @@
+<link rel="stylesheet" type="text/css" href="css/general.css" />
+<!--===top  顶部===-->
+<div ng-controller="recruitCtrl">
+  <div class="top">
+    <div ui-sref="index.employ" class="return">
+      <span>返回</span>
+    </div>
+    <div class="title">招聘资讯</div>
+    <div class="login">
+     </div>
+  </div>
+  <div style="height:50px;"></div>
+
+  <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container-fluid pad-b-6">
+    <div style="margin-top:5px" ui-sref="recruitInfo({recruitId:recruit.id})" ng-repeat="recruit in recruitList" class="row xuxian">
+      <div class="pull-left" ng-bind="$index + 1 + '.' + recruit.title"></div>
+      <p class="wz clearfix" ng-bind="recruit.publishDate"></p>
+      <div class="ft-1  line-H6" style="color:gray;">
+           <div class="ft-1  magn-r fudong-l ">阅<span ng-bind="recruit.viewCount"></span>次</div> 
+           <div class="ft-1" ng-bind="recruit.userName"></div>
+       </div> 
+    </div>
+  </div>
+</div>

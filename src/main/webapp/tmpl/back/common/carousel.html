@@ -1,0 +1,71 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="carouselCtr">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">轮播图</h3>
+	</div>
+	<div class=" magn tx-r">
+		<button type="button" class="btn btn-danger btn-sm" style="" ng-click="showAddWin()">&nbsp;添&nbsp;加&nbsp;</button>
+	</div>
+	<div class=" magn tx-l">
+		<a class="tx-red">注意事项：</a><br/>
+		<a class="tx-red">上传的图片大小必须是长宽比例3:1，手机端只显示前3个</a>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="pad" style="margin:4px;">
+			<div style="width:30%" class="pad-lr-3 fudong-l" ng-repeat="carousel in carouselList">
+				<img style="width:200px; height:150px;" ng-src="{{carousel.bannaPic | imgSrcFilter}}" />
+				<div class="pad-lr-3 FD">
+					<a class="fudong-l xiaos tx-blue" ng-click="editCarWin(carousel)">编辑</a> 
+					<a class="fudong-r xiaos tx-gray" ng-click="delteCarousel(carousel.id)">删除</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--内容END-->
+	<!--页码-->
+	<!-- <tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination> -->
+	<!--页码END-->
+
+	<!--轮播图增加，编辑-->
+	<div class="modal fade" id="addOCarousel" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="optionLable">添加轮播图</h4>
+				</div>
+				<div class="modal-body" style="margin-top: -3%">
+					<div class="container-fluid magn-tb">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-12">轮播图片：<span style="color:red">(图片大小限制200k)</span></div>
+								<div id="imgDiv" style="overflow:hidden"></div>
+								<div id="file-upload-div" style="height: 370px">
+									<form id="file-form" method="post" enctype="multipart/form-data">
+						                <input id="file-0" class="file" name="file"  type="file" multiple data-min-file-count="1">
+						                <br>
+						            </form>
+					            </div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">资源链接：</div>
+								<div class="col-fg-12">
+									<input class="form-control" rows="3" ng-model="carouselUrl" />
+								</div>
+							</div>
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" ng-click="saveAddCarousel()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--End-->
+</div>
+<!--主内容END-->

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.ActivityvoteMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Activityvote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activityId" property="activityId" jdbcType="INTEGER" />
+    <result column="optionId" property="optionId" jdbcType="INTEGER" />
+    <result column="voterId" property="voterId" jdbcType="INTEGER" />
+    <result column="voteDate" property="voteDate" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, optionId, voterId, voteDate, activityId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activityvote
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activityvote
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Activityvote" >
+    insert into activityvote (id, optionId, voterId, 
+      voteDate, activityId)
+    values (#{id,jdbcType=INTEGER}, #{optionId,jdbcType=INTEGER}, #{voterId,jdbcType=INTEGER}, 
+      #{voteDate,jdbcType=CHAR}, #{activityId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Activityvote" >
+    insert into activityvote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      id,
+      <if test="optionId != null" >
+        optionId,
+      </if>
+      <if test="voterId != null" >
+        voterId,
+      </if>
+      <if test="voteDate != null" >
+        voteDate,
+      </if>
+      <if test="activityId != null" >
+        activityId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      #{id,jdbcType=INTEGER},
+      <if test="optionId != null" >
+        #{optionId,jdbcType=INTEGER},
+      </if>
+      <if test="voterId != null" >
+        #{voterId,jdbcType=INTEGER},
+      </if>
+      <if test="voteDate != null" >
+        #{voteDate,jdbcType=CHAR},
+      </if>
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Activityvote" >
+    update activityvote
+    <set >
+      <if test="optionId != null" >
+        optionId = #{optionId,jdbcType=INTEGER},
+      </if>
+      <if test="voterId != null" >
+        voterId = #{voterId,jdbcType=INTEGER},
+      </if>
+      <if test="voteDate != null" >
+        voteDate = #{voteDate,jdbcType=CHAR},
+      </if>
+      <if test="activityId != null" >
+        activityId = #{activityId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Activityvote" >
+    update activityvote
+    set optionId = #{optionId,jdbcType=INTEGER},
+      voterId = #{voterId,jdbcType=INTEGER},
+      voteDate = #{voteDate,jdbcType=CHAR},
+      activityId = #{activityId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

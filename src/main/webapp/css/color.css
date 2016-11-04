@@ -1,0 +1,144 @@
+
+.bgd-white{
+	background-color:#fff;
+}
+
+.bgd-black{
+	background-color:black;
+}
+
+.bgd-gray1{
+	background-color:#222;
+}
+.bgd-gray2{
+	background-color:#333;
+}
+.bgd-gray3{
+	background-color:#555;
+}
+.bgd-gray4{
+	background-color:#999;
+}
+.bgd-gray5{
+	background-color:#eee;
+}
+.bgd-gray6{
+	background-color:#fdfdfd;
+}
+.bgd-gray7{
+	background-color:#f7f7f7;
+}
+.bgd-gray8{
+	background-color:#f5f5f5;
+}
+.bgd-gray9{
+	background-color:#fbfbfb;
+}
+
+.bgd-blue{
+	background-color:#0184dc;
+}
+.bgd-blue2{
+	background-color:#5bc0de;
+}
+
+.bgd-green{
+	background-color:#5cb85c;
+}
+.bgd-green1{
+	background-color:#ddffc3;
+}
+.bgd-green2{
+	background-color:#cdf4c0;
+}
+.bgd-green3{
+	background-color:#f3ffef;
+}
+
+.bgd-Orange{
+	background-color:#EE491F;
+}
+
+.bgd-red{
+	background-color:#d9534f;
+}
+.bgd-red1{
+	background-color:#f9543e;
+}
+.bgd-red2{
+	background-color:#ffa195;
+}
+.bgd-yellow{
+	background-color:#ffe690;
+}
+.tx-white{
+	color:#fff;
+}
+
+.tx-Orange{
+	color:#EE491F;
+}
+.tx-Orange-1{
+	color:#ff8000;
+}
+.tx-blue{
+	color:#0184dc;
+}
+
+.tx-gray{
+	color:#787878;
+}
+.tx-gray1{
+	color:#686868;
+}
+.tx-gray2{
+	color:#999999;
+}
+.tx-gray3{
+	color:#373737;
+}
+.tx-gray4{
+	color:#f1f1f1;
+}
+
+.tx-gray5{
+	color:#9c9c9c;
+}
+.tx-black{
+	color:#222;
+	text-align:left;
+}
+
+.tx-green{
+	color:#5cb85c;
+}
+.tx-green1{
+	color:#093;
+}
+
+.tx-red{
+	color:#d9534f;
+}
+
+.tx-bg-btn{
+	background-color:#EE491F;
+	color:#fff;
+}
+.bottom ul li:hover{background-color:rgb(0,153,255)}
+.pad2{background-color:rgb(245,245,245)}
+
+.library{color:#787878;}
+.bg-color{background-color: rgb(245,245,245);}
+
+
+/*会室预约  手机端*/
+.rectangle1-t{background-color:rgb(128,255,255)}
+.rectangle2-t{background-color:rgb(255,185,185)}
+.rectangle3-t{background-color:rgb(128,255,255)}
+/*meet*/
+.sure,.unsure{color:rgb(255,128,0);}
+.date-tx-color{color:rgb(0,128,255);}
+.date-bg-color{background-color:rgb(0,128,255);color:white}
+
+.search{background-color:red;borde:1px solid blue;opacity:0.3;border-radius:0.5px;}
+.rectang-c{background-color:#ff8080;}

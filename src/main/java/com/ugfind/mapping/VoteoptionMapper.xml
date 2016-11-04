@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.VoteoptionMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Voteoption" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="activityId" property="activityId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="optionCount" property="optionCount" jdbcType="VARCHAR" />
+    <result column="optionImg" property="optionImg" jdbcType="VARCHAR" />
+    <result column="voteCount" property="voteCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, activityId, title,optionCount, optionImg,voteCount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from voteoption
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from voteoption
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Voteoption" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into voteoption (activityId, title, optionCount, 
+      optionImg,voteCount)
+    values (#{activityId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR},#{optionCount,jdbcType=VARCHAR}, 
+      #{optionImg,jdbcType=VARCHAR},#{voteCount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Voteoption" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into voteoption
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        activityId,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="optionCount != null" >
+        optionCount,
+      </if>
+      <if test="optionImg != null" >
+        optionImg,
+      </if>
+      <if test="voteCount != null">
+      	voteCount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="activityId != null" >
+        #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="optionCount != null" >
+        #{optionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="optionImg != null" >
+        #{optionImg,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCount != null">
+      	#{voteCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Voteoption" >
+    update voteoption
+    <set >
+      <if test="activityId != null" >
+        activityId = #{activityId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="optionCount != null" >
+        optionCount = #{optionCount,jdbcType=VARCHAR},
+      </if>
+      <if test="optionImg != null" >
+        optionImg = #{optionImg,jdbcType=VARCHAR},
+      </if>
+      <if test="voteCount != null">
+      	voteCount = #{voteCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Voteoption" >
+    update voteoption
+    set activityId = #{activityId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      optionCount = #{optionCount,jdbcType=VARCHAR},
+      optionImg = #{optionImg,jdbcType=VARCHAR},
+      voteCount = #{voteCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <resultMap type="com.ugfind.model.Voteoption" id="voteOptionsResultMap" extends="BaseResultMap">
+  	<result property="voteNum" column="voteNum" jdbcType="INTEGER"/>
+  </resultMap>
+  
+  <!-- 根据活动id获取其对应的投票项 -->
+  <select id="selectOptionsByActivityId" parameterType="java.lang.Integer" resultMap="voteOptionsResultMap">
+    select a.*,b.* from voteoption a 
+	left join 
+		(select optionId,activityId,count(id) AS voteNum from activityvote where activityId = #{activityId,jdbcType=INTEGER} group by optionId,activityId) b 
+		on a.id = b.optionId
+	where a.activityId = #{activityId,jdbcType=INTEGER}
+  </select>
+</mapper>

@@ -1,0 +1,33 @@
+<style type="text/css">
+.mg{
+  margin: 3px 10px 2px 3px;
+}
+.wz{
+    color: #777;
+    font-size: 80%
+}
+</style>
+<div class="top">
+  <div onclick="javascript:history.back(-1);" class="return">
+    <span>返回</span>
+  </div>
+  <div class="title">详情</div>
+  <div class="login">
+    <span></span>
+  </div>
+</div>
+<div style="height:50px;"></div>
+
+<div ng-controller="consultInfoCtrl " class="mg_box pad-b-6 " style="padding-right:25px;padding-left:25px;margin-top: 5px;">
+  <p >问题:</p>
+  <div class="clearfix " ng-bind="consult.question"></div>
+  <div class="fudong-l mg wz">
+    <span ng-bind="consult.nickName"></span>
+    <span ng-bind="consult.askTime | date:'yyyy-MM-dd HH:mm:ss' ">2015-06-05</span>
+  </div>
+  <p class="clearfix tx-Orange-1">管理员回复:</p>
+  <div class="clearfix tx-Orange-1" ng-bind="consult.answer"></div>
+  <div class="fudong-l mg wz clearfix tx-Orange-1">
+    <span class=" tx-Orange-1" ng-bind="consult.replyTime | date:'yyyy-MM-dd HH:mm:ss'"></span>
+  </div>
+</div>

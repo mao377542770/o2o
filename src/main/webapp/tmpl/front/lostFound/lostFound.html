@@ -1,0 +1,35 @@
+<div ng-controller="lostFoundCtrl">
+    <!--===top  顶部===-->
+    <div class="top">
+       <div ui-sref="index" class="return">
+          <span>返回</span>
+       </div>
+       <div class="title">失物招领</div>
+       <div class="login">
+           <span></span>
+       </div>
+    </div>
+    <div style="height:50px;"></div>
+    <!--活动公告-->
+    <div class="magn-tb pad-b-6" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0'>
+        <div class="tx-l magn">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-click="updateSelection($event)" ><span class="pad-lr">未领取</span>
+              </label>
+            </div>
+        </div>
+        <div ng-repeat="f in lostFoundList" class="magn border1 bor-gray1 bgd-white pad bd-r2 tx-l line-H5">
+            <div class="tx-blue xiaos" ng-bind="f.title | titleFilter"></div>
+            <div class="" ng-bind="f.content"></div>
+            <div class="ft-1 tx-gray">
+	            <span ng-bind="f.publishDate"></span>
+	            <span ng-if="f.state == 1" class="tx-green" style="float: right;">已领取</span>
+            	<span ng-if="f.state == 0" class="tx-gray" style="float: right;">未领取</span></div>
+            <div class="ft-1">
+            	<span class="tx-gray" ng-bind="f.deptName"></span>
+            	<span class="tx-gray magn-l" ng-bind="f.schoolName"></span>
+            </div>
+        </div>
+    </div>
+</div>

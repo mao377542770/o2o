@@ -1,0 +1,66 @@
+<div ng-controller="schoolActivityCtrl">
+    <!--===top  顶部===-->
+    <div class="top">
+       <div ui-sref="index" class="return">
+          <span>返回</span>
+       </div>
+       <div class="title">活动投票</div>
+       <div class="login">
+           <span></span>
+       </div>
+    </div>
+   <!--  <div style="height:50px;"></div>
+    <div class="FD tx-c bgd-white" style="line-height:50px;font-size:16px; position:fixed; top:50; width:100%;">
+        <div ng-click="changeState(1)" ng-class="{'xiaos tx-blue border-b-s2 bor-018':state.activity}" class="pull-left b_box border-b-s bor-gray">活动公告</div>
+        <div ng-click="changeState(2)" ng-class="{'xiaos tx-blue border-b-s2 bor-018':state.vote}" class="pull-left b_box border-b-s bor-gray">投票选区</div>
+    </div> -->
+    <div style="height:50px;"></div>
+    <!--活动公告-->
+
+
+    <div ng-show="state.activity" class="magn-tb pad-b-6" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0'>
+        <div class="tx-l magn">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-click="updateSelection($event)" checked="checked"><span class="pad-lr">仅本校</span>
+              </label>
+            </div>
+        </div>
+        <div ui-sref="schoolActivityInfo({activityId:act.id})" ng-repeat="act in activityList" class="magn border1 bor-gray1 bgd-white pad bd-r2 tx-l line-H5">
+            <div class="tx-blue xiaos" ng-bind="act.title | titleFilter"></div>
+            <div class="ft-1 tx-gray">浏览：<span ng-bind="act.viewCount"></span><span class="pad-lr-3" ng-bind="act.publishDate"></span></div>
+            <div class="ft-1 tx-gray" ng-if="act.type == 1">
+            	截止日期：{{act.endDate}}
+            	<span ng-if="act.isValid == 1" class="pad-lr-3 tx-red" bg-bind="act.endDate">（进行中）</span>
+            	<span ng-if="act.isValid == 0" class="pad-lr-3" bg-bind="act.endDate">（已结束）</span></div>
+            <div class="ft-1 tx-gray">
+	            <span ng-bind="act.deptName"></span>
+	            <span class="magn-l" ng-bind="act.schoolName"></span>
+            </div>
+        </div>
+    </div>
+    <!--投票选区-->
+    <!-- <div ng-show="state.vote" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="magn-tb">
+        <div class="tx-r magn">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" value=""><span class="pad-lr">仅本校</span>
+              </label>
+            </div>
+        </div>
+        <div class="magn border1 bor-gray1 bgd-white pad bd-r2 tx-l line-H5">
+            <div class="tx-blue xiaos">XXX活动</div>
+            <div class="ft-2 tx-gray"><span>浏览：21</span><span class="pad-lr-3">2016-05-04</span></div>
+            <div class="ft-2 tx-gray">截止日期：2016.7.22<span class="pad-lr-3 tx-red">（进行中）</span></div>
+            <div class="ft-2 tx-gray">图书馆</div>
+            <div class="ft-2 tx-gray">云南大学</div>
+        </div>
+        <div class="magn border1 bor-gray1 bgd-white pad bd-r2 tx-l line-H5">
+            <div class="tx-blue xiaos">XXX活动</div>
+            <div class="ft-2 tx-gray"><span>浏览：21</span><span class="pad-lr-3">2016-05-04</span></div>
+            <div class="ft-2 tx-gray">截止日期：2016.7.2<span class="pad-lr-3">（已结束）</span></div>
+            <div class="ft-2 tx-gray">图书馆</div>
+            <div class="ft-2 tx-gray">云南大学</div>
+        </div>
+    </div> -->
+</div>

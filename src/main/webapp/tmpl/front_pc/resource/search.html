@@ -1,0 +1,38 @@
+<link rel="stylesheet" type="text/css" href="styles/tm.pagination.css"/>
+<style type="text/css">
+.tmmg{
+	margin-left: 10px;
+}
+</style>
+<div class="row">
+	<!-- 显示最新的前10条内容 -->
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="box box-primary">
+			<div class="box-header with-border">
+				<h3 class="box-title">资源</h3>
+			</div>
+			<!-- /.box-header -->	
+			<div ng-controller="searchListCtrl" class="box-body">
+				<ol class="products-list product-list-in-box">
+					<li ui-sref="resourceInfo({id:resource.id})" ng-repeat="resource in resourceList" class="item">
+						<div class="product-info">
+							<b class="ic ic-doc mr5"></b>
+							<span class="product-description" ng-bind="resource.title"></span>
+							<small class="tmmg text-muted pull-right">
+							<i class="glyphicon glyphicon-time" aria-hidden="true"></i>
+							<span  ng-bind="resource.date | date:'yyyy-MM-dd HH:mm:ss'"></span>
+							</small>
+							<span class="label label-info pull-right" ng-bind="resource.typeName"></span>
+							<span ng-if="resource.typeName == null || resource.typeName == ''" class="label label-warning pull-right">未分类</span>
+						</div>
+					</li>
+				</ol>
+				
+				<div class="col-sm-offset-3 col-sm-6">
+					<tm-pagination conf="pageInfo"></tm-pagination>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>

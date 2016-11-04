@@ -1,0 +1,179 @@
+<!-- <script src="js/mobiscroll-master/mobiscroll.core.js"></script>
+<script src="js/mobiscroll-master/mobiscroll.frame.js"></script>
+<script src="js/mobiscroll-master/mobiscroll.scroller.js"></script>
+<script src="js/mobiscroll-master/mobiscroll.util.datetime.js"></script>
+<script src="js/mobiscroll-master/mobiscroll.datetimebase.js"></script>
+<script src="js/mobiscroll-master/mobiscroll.datetime.js"></script>
+<script src="js/mobiscroll-master/i18n/mobiscroll.i18n.zh.js"></script> 
+
+<link href="css/mobiscroll-master/mobiscroll.animation.css" rel="stylesheet" type="text/css" />
+<link href="css/mobiscroll-master/mobiscroll.frame.css" rel="stylesheet" type="text/css" />
+<link href="css/mobiscroll-master/mobiscroll.scroller.css" rel="stylesheet" type="text/css" />-->
+
+
+<script>
+     $(function () {
+         function init(){ 
+	          // Date demo initialization
+	          $('#demo_date').mobiscroll().date({
+	              theme: "mobiscroll",     // Specify theme like: theme: 'ios' or omit setting to use default 
+	              mode: "scroller",       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+	              display: "modal", // Specify display mode like: display: 'bottom' or omit setting to use default 
+	              lang: "zh"        // Specify language like: lang: 'pl' or omit setting to use default 
+	          });
+	          
+	          // Time demo initialization
+	           $('#demo_stime').mobiscroll().time({
+	               theme: "mobiscroll",     // Specify theme like: theme: 'ios' or omit setting to use default 
+	            mode: "scroller",       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+	            display: "modal", // Specify display mode like: display: 'bottom' or omit setting to use default 
+	            lang: "zh"        // Specify language like: lang: 'pl' or omit setting to use default 
+	           });
+	           // Time demo initialization
+	           $('#demo_etime').mobiscroll().time({
+	               theme: "mobiscroll",     // Specify theme like: theme: 'ios' or omit setting to use default 
+	            mode: "scroller",       // Specify scroller mode like: mode: 'mixed' or omit setting to use default 
+	            display: "modal", // Specify display mode like: display: 'bottom' or omit setting to use default 
+	            lang: "zh"        // Specify language like: lang: 'pl' or omit setting to use default 
+	           });
+         }
+         
+         init();
+         
+         $('.settings').on('change', function() {
+             $('.demo-cont').hide();
+             init();
+         });
+     });
+</script>
+<div ng-controller="roomCtrl">
+	<!--===top  顶部===-->
+	<div class="top">
+		<div class="return" onclick="javascript:history.back(-1);">
+			<span>返回</span>
+		</div>
+		<div class="title" style="font-size:18px;">会室预约</div>
+		<div class="login">
+			<span></span>
+		</div>
+	</div>
+
+	<div style="height:30px;"></div>
+
+	<div class="content-t">
+		<div class="time-t">
+			<div class="date-t" ng-repeat="d in dayList track by $index" ng-class="{'date-bg-color':d.state}" ng-click="changeDate($index)" ng-bind="d.day"></div>
+			<input class="date-t" type="text" id="demo_date" ng-change="getDemoDate(demoDate)" ng-class="{'date-bg-color':demoDateState}"  ng-model="demoDate" placeholder="选择时间" > 
+			<div class="clear"></div>
+		</div>
+		<div class="room_1-t" ng-repeat="room in roomList">
+			<div class="left-t">
+				<div class="room_name-t" ng-bind="room.roomName">第一会室</div>
+				<div class="button-t ft-5" style="text-align: center;line-height: 25px;margin-top: 10px;">
+                     <input ng-click="showInput(room,$event)" class="book-t1"  type="button" value="预约"/>
+                     <input ng-click="showDetail(room,$event)" class="detail-t1-a" type="button" value="详情&nbsp;+"/>
+                </div>
+			</div>
+			<div class="clear" style="clear:both;"></div>
+			<div class="right-t">
+				<div class="box-t">
+					<div ng-if="room.time6 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time6 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time7 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time7 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time8 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time8 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time9 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time9 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time10 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time10 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time11 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time11 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time12 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time12 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time13 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time13 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time14 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time14 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time15 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time15 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time16 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time16 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time17 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time17 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time18 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time18 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time19 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time19 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time20 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time20 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time21 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time21 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time22 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time22 == false" class="rectangle-tf"></div>
+					<div ng-if="room.time23 == true" class="rectangle-tt"></div>
+					<div ng-if="room.time23 == false" class="rectangle-tf"></div>
+				</div>
+				<div class="number-t ft-1">
+					<div class="point1-t">6点</div>
+					<div class="point2-t">12点</div>
+					<div class="point3-t">18点</div>
+					<div class="point4-t">24点</div>
+				</div>
+				
+			</div>
+            <div class="clear" style="clear:both;"></div>
+            <div class="end-t1" ng-show="room.isDetail">
+                <div class="line-t" ng-repeat="re in room.list">
+                    <div class="name-t tx-l" ng-bind="re.nickName"></div>
+                    <div class="quantum-t"><span ng-bind="re.startTime | reserverTimeFilter"></span>—<span ng-bind="re.endTime | reserverTimeFilter"></span></div>
+                    <div class="dial-t" style="color:rgb(50,193,235)">
+                        <a style="color:rgb(50,193,235)" href="tel:{{re.phone}}"><img src="images/phone.png" /></a>
+                    </div>
+                    <div class="delete-t" ng-if="user.id != null && re.appUser == user.id" ng-click="deleteModal(room,re)">
+                        <img src="images/delete1.png" />
+                    </div>
+                </div>
+             </div>
+             
+        
+         </div>
+    </div>  
+	
+	<!-- 时间对话框 -->  
+    <div id="timeDialog" ng-show="isShow" class="line-H1" style="display:none;position:absolute;width:93%;height:46px;margin-top:20px;margin-right:15px;border:1px solid rgb(230, 225, 225); padding-top 5px;background-color:rgb(243, 241, 241);">
+        <div class="start magn-t-3"><input type="text" id="demo_stime" style="width:50px;background-color:#fbfbfb;border: 1px solid rgb(228, 228, 228);height: 23px;" /></div>
+        <div class="until" style="margin-top:15px;color:rgb(137, 134, 133)">到</div>
+        <div class="stop bgd-gray9 magn-t-3"><input type="text" id="demo_etime" style="width:50px;background-color:#fbfbfb;border: 1px solid rgb(228, 228, 228);height: 23px;" /></div>
+        <div class="sure"><button style="line-height: 10px;padding: 10px; margin-top: 6px;margin-left:15px;" type="submit" class="btn btn-warning"  ng-click="addReservation()" ng-disabled="reBtn">确定</button></div>
+        <div class="unsure"><button style="line-height: 10px;padding: 10px; margin-top: 6px;;" class="btn btn-warning" ng-click="cancelReservation()">取消</button></div>
+    </div>  
+    
+    
+    <!-- 提示框 -->
+	<div id="warnModel" class="modal fade bs-example-modal-sm">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">操作提醒</h4>
+				</div>
+				<div class="modal-body">
+					<p id="att_p">是否确定删除</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="att_btn" type="button" class="btn btn-primary"
+						data-dismiss="modal" ng-click="deleteRoomReservation()">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>	
+ 
+

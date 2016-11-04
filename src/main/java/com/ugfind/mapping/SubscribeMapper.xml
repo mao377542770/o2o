@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.SubscribeMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Subscribe" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="organization" property="organization" jdbcType="VARCHAR" />
+    <result column="dept" property="dept" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="telphone" property="telphone" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="applyDate" property="applyDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, organization, dept, name, telphone, content, userId, applyDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from subscribe
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from subscribe
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Subscribe" >
+    insert into subscribe (organization, dept, 
+      name, telphone, content, 
+      userId, applyDate)
+    values (#{organization,jdbcType=VARCHAR}, #{dept,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{telphone,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=INTEGER}, #{applyDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Subscribe" >
+    insert into subscribe
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="organization != null" >
+        organization,
+      </if>
+      <if test="dept != null" >
+        dept,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="telphone != null" >
+        telphone,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="applyDate != null" >
+        applyDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="organization != null" >
+        #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=DATE}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Subscribe" >
+    update subscribe
+    <set >
+      <if test="organization != null" >
+        organization = #{organization,jdbcType=VARCHAR},
+      </if>
+      <if test="dept != null" >
+        dept = #{dept,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="telphone != null" >
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=DATE}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Subscribe" >
+    update subscribe
+    set organization = #{organization,jdbcType=VARCHAR},
+      dept = #{dept,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      userId = #{userId,jdbcType=INTEGER},
+      applyDate = #{applyDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

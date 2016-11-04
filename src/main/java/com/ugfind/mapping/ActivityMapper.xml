@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Activity" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="publishUser" property="publishUser" jdbcType="INTEGER" />
+    <result column="publishName" property="publishName" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="publishDate" property="publishDate" jdbcType="VARCHAR" />
+    <result column="endDate" property="endDate" jdbcType="VARCHAR" />
+    <result column="viewCount" property="viewCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.Activity" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, deptId, schoolId, type, title, publishDate, endDate, viewCount,publishUser,publishName
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from activity
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Activity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity (deptId, schoolId, publishUser,publishName
+      type, title, publishDate, 
+      endDate, viewCount, 
+      content)
+    values (#{deptId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{publishUser,jdbcType=INTEGER},#{publishName,jdbcType=VARCHAR},
+      #{type,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{publishDate,jdbcType=VARCHAR}, 
+      #{endDate,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER},  
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Activity" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="publishDate != null" >
+        publishDate,
+      </if>
+      <if test="endDate != null" >
+        endDate,
+      </if>
+      <if test="viewCount != null" >
+        viewCount,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="publishUser != null" >
+        publishUser,
+      </if>
+      <if test="publishName != null" >
+        publishName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publishUser != null" >
+         #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="publishName != null" >
+         #{publishName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Activity" >
+    update activity
+    <set >
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publishDate = #{publishDate,jdbcType=VARCHAR},
+      </if>
+      <if test="endDate != null" >
+        endDate = #{endDate,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null" >
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="publishUser != null" >
+        publishUser = #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="publishName != null" >
+        publishName = #{publishName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.Activity" >
+    update activity
+    set deptId = #{deptId,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=VARCHAR},
+      endDate = #{endDate,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      publishName = #{publishName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Activity" >
+    update activity
+    set deptId = #{deptId,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=VARCHAR},
+      endDate = #{endDate,jdbcType=VARCHAR},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      publishName = #{publishName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- resultMap 关联发布人和部门 -->
+  <resultMap type="com.ugfind.model.Activity" id="ActivityResultMap" extends="ResultMapWithBLOBs">
+  	<result property="deptName" column="deptName"/>
+  </resultMap>
+  <!-- 获取活动或者投票列表 -->
+  <select id="getAllActivity" parameterType="com.ugfind.model.ActivityConfig" resultMap="ActivityResultMap">
+  	SELECT
+		a.id,
+		a.deptId deptId,
+		a.publishUser publishUser,
+		a.schoolId schoolId,
+		a.type type,
+		a.title title,
+		a.content content,
+		a.publishDate publishDate,
+		a.endDate endDate,
+		a.viewCount viewCount,
+		b.deptName deptName,
+		a.publishName publishName
+	FROM
+		activity a
+	JOIN dept b ON a.deptId = b.id
+	WHERE a.deptId = #{deptId,jdbcType=INTEGER} and
+     	a.schoolId = #{schoolId,jdbcType=INTEGER} 
+    ORDER BY a.id DESC LIMIT #{currentIndex},#{itemsPerPage}	
+  </select>
+  <!-- 获取数量 -->
+  <select id="getAcCount" parameterType="com.ugfind.model.ActivityConfig" resultType="Integer">
+  	SELECT count(id) count FROM activity
+  	WHERE deptId = #{deptId,jdbcType=INTEGER} and
+     	  schoolId = #{schoolId,jdbcType=INTEGER}
+  </select>
+  <!-- 阅览数量加 1 -->
+  <update id="addViewCount" parameterType="java.lang.Integer">
+  	update activity set viewCount = viewCount + 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+   <resultMap type="com.ugfind.model.ActivityVo" id="actVoResultMap" extends="ResultMapWithBLOBs">
+  	<result property="deptName" column="deptName"/>
+  	<result property="schoolName" column="schoolName"/>
+  	<collection property="voteList" ofType="com.ugfind.model.VoteoptionVo">
+		<result column="vId" property="id" />
+		<result column="vTitle" property="title" />
+		<result column="activityId" property="activityId" />
+		<result column="optionCount" property="optionCount" />
+		<result column="optionImg" property="optionImg" />
+		<result column="voteCount" property="voteCount" />
+		<result column="isVote" property="isVote" />
+	</collection>
+  </resultMap>
+  <!-- 前台页面获取活动或者投票列表 -->
+  <select id="getFrontActivity" parameterType="com.ugfind.model.ActivityConfig" resultMap="actVoResultMap">
+  	SELECT
+		a.id,
+		a.deptId deptId,
+		a.publishUser publishUser,
+		a.schoolId schoolId,
+		a.type type,
+		a.title title,
+		a.content content,
+		a.publishDate publishDate,
+		a.endDate endDate,
+		a.viewCount viewCount,
+		b.deptName deptName,
+		a.publishName publishName,
+		d.name schoolName
+	FROM activity a
+	JOIN dept b ON a.deptId = b.id
+	JOIN school d ON a.schoolId = d.id
+	<if test="schoolId != null">
+    	WHERE a.schoolId = #{schoolId,jdbcType=INTEGER}
+    </if>
+    ORDER BY a.id DESC LIMIT #{currentIndex},#{itemsPerPage}	
+  </select>
+  <!-- 获取前台页面获取活动或者投票数量 -->
+  <select id="getFrontActivityCount" parameterType="com.ugfind.model.ActivityConfig" resultType="Integer">
+  	SELECT count(id) count FROM activity
+    <if test="schoolId != null">
+    	WHERE schoolId = #{schoolId,jdbcType=INTEGER}
+    </if>
+  </select>
+  
+   <select id="getFrontActivityInfoById" parameterType="map" resultMap="actVoResultMap">
+  	<choose>
+  		<when test="userId != null and userId != ''">
+  			SELECT
+				a.id,
+				a.deptId deptId,
+				a.publishUser publishUser,
+				a.schoolId schoolId,
+				a.type type,
+				a.title title,
+				a.content content,
+				a.publishDate publishDate,
+				a.endDate endDate,
+				a.viewCount viewCount,
+				b.deptName deptName,
+				a.publishName publishName,
+				d.name schoolName,
+				e.id vId,e.activityId,e.title as vTitle,e.optionCount,e.optionImg,f.voteCount,
+				IF((select count(g.id) from activityvote g where g.voterId=#{userId} and g.activityId = #{id,jdbcType=INTEGER} and g.optionId=e.id) > 0,true,null) isVote
+			FROM activity a
+			JOIN dept b ON a.deptId = b.id
+			JOIN school d ON a.schoolId = d.id
+			LEFT JOIN voteoption e on a.id = e.activityId
+			LEFT JOIN (select optionId,count(id) as voteCount from activityvote GROUP BY optionId) f on e.id = f.optionId
+		    WHERE a.id = #{id,jdbcType=INTEGER}
+  		</when>
+  		<otherwise>
+  			SELECT
+				a.id,
+				a.deptId deptId,
+				a.publishUser publishUser,
+				a.schoolId schoolId,
+				a.type type,
+				a.title title,
+				a.content content,
+				a.publishDate publishDate,
+				a.endDate endDate,
+				a.viewCount viewCount,
+				b.deptName deptName,
+				a.publishName publishName,
+				d.name schoolName,
+				e.id vId,e.activityId,e.title as vTitle,e.optionCount,e.optionImg,f.voteCount
+			FROM activity a
+			JOIN dept b ON a.deptId = b.id
+			JOIN school d ON a.schoolId = d.id
+			LEFT JOIN voteoption e on a.id = e.activityId
+			LEFT JOIN (select optionId,count(id) as voteCount from activityvote GROUP BY optionId) f on e.id = f.optionId
+		    WHERE a.id = #{id,jdbcType=INTEGER}
+  		</otherwise>
+  	</choose>
+  </select>
+  
+</mapper>

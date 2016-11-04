@@ -1,0 +1,101 @@
+<div class="col-sm-10" ng-controller="workStoryController">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c col-fg-9">
+			职场故事<span class="font-1"></span>
+		</h3>
+		<button type="button" ng-click="openAdd()"
+			class="btn btn-danger btn-sm col-fg-1" style="margin-top:30px;">&nbsp;发&nbsp;布&nbsp;</button>
+	</div>
+	<div class="main border1 bor-022" style="margin-top:10px;">
+		<div class="border4 bor-022 pad" style="min-height:600px; margin:4px;">
+			<div style="height:490px;">
+				<div class="border-b-d bor-gray2 pad-lr-3 sbhg"
+					ng-repeat="news in newsList">
+					<div class="row">
+						<div class="col-sm-9 tx-blue xiaos a" ng-click="showContent(news)">
+							• <span ng-bind="news.title"></span>
+						</div>
+						<div class="col-sm-1 tx-blue xiaos" ng-click="updateNews(news)">修改</div>
+						<div class="col-sm-1 tx-gray xiaos" ng-click="deleteNews(news.id)">删除</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3 tx-gray2">
+							发布人：<span ng-bind="news.publishUser"></span>
+						</div>
+						<div class="col-sm-9 tx-gray2">
+							发布日期:<span ng-bind="news.publishDate"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--页码-->
+			<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+			<!--页码END-->
+		</div>
+	</div>
+	<!--内容END-->
+
+
+	<!--发布-->
+	<div class="modal fade" id="addNewsWin" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document" style="width:740px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close" style="font-size:30px;" >
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="winTitle">添加</h4>
+				</div>
+				<div class="modal-body">
+					<table width="80%" class="magn-a">
+						<tr height="40px">
+							<td width="100">标题：</td>
+							<td><input class="form-control" type="text" ng-model="title"
+								style="width:550px" ng-disabled="isDisabled" /></td>
+						</tr>
+						<tr height="40px">
+							<td>发布人：</td>
+							<td><input class="form-control" type="text" style="width:550px"
+								ng-model="nickName"  ng-disabled="isDisabled"/></td>
+						</tr>
+						<tr height="40px">
+							<td style="color: red">封面(选填)：</td>
+							<td>
+								<div id="imgDiv" style="overflow:hidden"></div>
+								<div id="file-upload-div">
+									<form id="file-form" method="post"
+										enctype="multipart/form-data">
+										<input id="file-0" class="file" name="file" type="file"
+											multiple data-min-file-count="1"> <br>
+									</form>
+								</div>
+							</td>
+						</tr>
+						<tr height="40px">
+							<td colspan="2">内容：(您可以编辑器上的
+								<div class="icon icon-add">&nbsp;&nbsp;</div> 按钮上传附件)
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<script id="editor" type="text/plain"style="width:650px;height:400px;"></script> 
+								<!-- <script>
+	               					/* var ue = UE.getEditor('editor'); */
+	               				</script> -->
+	               			</td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary"
+						ng-disabled="isDisabled" ng-click="saveNews()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--发布End-->
+</div>

@@ -1,0 +1,52 @@
+<!-- <link rel="stylesheet" type="text/css" href="css/general.css" /> -->
+<div ng-controller="literatureCtrl">
+  <div ui-sref="index" class="top">
+     <div class="return">
+        <span>返回</span>
+     </div>
+     <div class="title">文献资料</div>
+     
+  </div>
+    <!--===top  顶部===-->
+    <div class="FD tx-c bgd-white" style="line-height:50px;font-size:16px; position:fixed; top:50px; width:100%;">
+        <div ng-repeat="literaturetype in literaturetypeList track by $index" ng-class="{'xiaos tx-blue border-b-s2 bor-018':literaturetype.state}" ng-click="selectType($index)" class="pull-left border-b-s bor-gray col-fg-2-2" ng-bind="literaturetype.name"></div>
+        <div ng-if="literaturetypeList == null || literaturetypeList.length == 0">
+            <div class="pull-left c_box border-b-s bor-gray">中文</div>
+            <div class="pull-left c_box border-b-s bor-gray">外文</div>
+            <div class="pull-left c_box border-b-s bor-gray">电子图书</div>
+            <div class="pull-left c_box border-b-s bor-gray">试用资源</div>
+        </div>
+    </div>
+    <div style="height:100px;"></div>
+        
+    <!-- <div  infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container-fluid" style="padding-right: 30px;padding-left: 30px">
+        <div style="margin-top:5px" ng-click="toUrl(literature)" ng-repeat="literature in literatureList" class="row xuxian">
+            <div class="left" style="float:left;width:80%;margin-right:20px;">
+              <div class="pull-left"  ng-bind="$index + 1 + '.' + literature.name" style="width:100%;"></div>
+            </div>
+              <div class="introduce">简介</div>
+              <div  class="xiaos " ng-click="changeState(literature,$event)"  >
+                <div class="cs">（233次）<span ng-hide="literature.showInfo"></span><span ng-show="literature.showInfo">(收起)</span></div>
+              </div>
+            <div ng-show="literature.showInfo" class="clearfix miaoshu" ng-bind="literature.abst"></div>
+        </div>
+    </div> -->
+    
+    <div  infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container-fluid pad-b-6 magn" style="padding-right: 15px;padding-left: 15px">
+        <div style="margin-top:5px" ng-click="toUrl(literature)" ng-repeat="literature in literatureList" class="row xuxian">
+            <div class="pull-left" style="width:90%;">
+            <div class="pull-left" ng-bind="$index + 1 + '.' + literature.name"></div>
+            <div class="clear" style="clear:both;"></div>
+            <div><span class="wz"></span></div>
+            </div>
+            <div  class="xiaos pull-right" ng-click="changeState(literature,$event)">
+                <div class="wz">简介<span ng-hide="literature.showInfo"><!--(展开)--></span><span ng-show="literature.showInfo"><!--(收起)--></span></div>
+                
+            </div>
+            <div ng-show="literature.showInfo" class="clearfix miaoshu" ng-bind="literature.abst"></div>
+        </div>
+    </div>
+    
+    
+
+</div>

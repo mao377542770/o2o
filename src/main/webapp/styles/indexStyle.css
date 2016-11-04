@@ -1,0 +1,50 @@
+.banner_bg {
+width: 100%;
+height: 368px;
+background-color:#87d6d9;
+background-position: 50% 50%;
+margin-top:100px;
+border-bottom:20px solid #337AB7;
+}
+.navbar-inverse-hs {
+    background-color: #f0f0f0;
+    border-color: #f0f0f0;
+}
+.downloadbox {
+width: 1190px;
+height: 120px;
+margin: 10px auto;
+}
+.android {
+	width: 370px;
+	height: 120px;
+	position: relative;
+	float: left;
+	border:1px solid #ccc;
+	margin-right:1px;
+	cursor:pointer;
+}
+.btn-xyks{
+	background-image:url(../images/btn-xyks-b.jpg);
+	background-repeat:no-repeat;
+}
+.btn-xyks:hover{
+	background-image:url(../images/btn-xyks-a.jpg);
+	background-repeat:no-repeat;
+}
+.btn-sjlx{
+	background-image:url(../images/btn-sjlx-b.jpg);
+	background-repeat:no-repeat;
+}
+.btn-sjlx:hover{
+	background-image:url(../images/btn-sjlx-a.jpg);
+	background-repeat:no-repeat;
+}
+.btn-ysj{
+	background-image:url(../images/btn-ysjfx-b.jpg);
+	background-repeat:no-repeat;
+}
+.btn-ysj:hover{
+	background-image:url(../images/btn-ysjfx-a.jpg);
+	background-repeat:no-repeat;
+}

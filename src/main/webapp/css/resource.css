@@ -1,0 +1,127 @@
+.resourceType{
+  -moz-box-flex: 1; 
+  -webkit-box-flex: 1; 
+  box-flex: 1;
+}
+
+.ul-border{
+  border-bottom: 2px solid #AAD7FF;
+}
+.resourceType li{
+  list-style-type: none;
+}
+.li_active:hover{
+  background-color: #F8F8F8;
+}
+
+.svg-size{
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 12px;
+  right: 1.5%;
+}
+.sc{
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+}
+
+
+@keyframes myfirst
+{
+from {width: 0%;}
+to {width: 70%;}
+}
+
+@-moz-keyframes myfirst /* Firefox */
+{
+from {width: 0%;}
+to {width: 70%;}
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */
+{
+from {width: 0%;}
+to {width: 70%;}
+}
+
+@-o-keyframes myfirst /* Opera */
+{
+from {width: 0%;}
+to {width: 70%;}
+}
+
+@keyframes end-search
+{
+from {width: 70%;}
+to {width: 0%}
+}
+
+@-moz-keyframes end-search /* Firefox */
+{
+from {width: 70%;}
+to {width: 0%}
+}
+
+@-webkit-keyframes end-search /* Safari 和 Chrome */
+{
+from {width: 70%;}
+to {width: 0%}
+}
+
+@-o-keyframes end-search /* Opera */
+{
+from {width: 70%;}
+to {width: 0%}
+}
+
+
+
+.searchInpt{
+  position: absolute;
+  top:6px;
+  right: 10px;
+  width: 70%;
+  display: none;
+}
+.search-anm{
+  display: inline;
+  animation: myfirst 0.7s ease 0s normal none 1;
+  -moz-animation: myfirst 0.7s ease 0s normal none 1; 
+  -webkit-animation: myfirst 0.7s ease 0s normal none 1; 
+  -o-animation: myfirst 0.7s 0.7s ease 0s normal none 1; 
+}
+.search-anm_end{
+  animation: end-search 0.7s;
+  -moz-animation: end-search 0.7s; 
+  -webkit-animation: end-search 0.7s; 
+  -o-animation: end-search 0.7s;
+}
+
+.f_box{
+  display: -moz-box; 
+  display: -webkit-box; 
+  display: box; 
+  width: 100%;
+}
+.p_box{
+  -moz-box-flex: 1; 
+  -webkit-box-flex: 1; 
+  box-flex: 1;
+  width: 100%;
+}
+.zx{
+  height: 50px;
+  max-height: 50px;
+}
+.hide{
+  display: none;
+}
+.down{
+  width:30px;
+}

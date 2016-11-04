@@ -1,0 +1,37 @@
+<div class="col-sm-10 ysck" ng-controller="consultController">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c col-fg-9">
+			咨询
+		</h3>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="pad" style="margin:4px;cursor: pointer;" ng-repeat="consult in consults">
+			<div class="border-b-d bor-gray2 pad-lr-3 sbhg">
+				<div class="row">
+					<div class="col-sm-8 tx-question xiaos"><span ng-bind="$index+1"></span><span>、</span><span>咨询内容：</span><span ng-bind="consult.question">支持两张联通卡吗？</span><span>（</span><span  ng-bind="consult.nickName">jd_132662aln</span><span>）</span><span class="tx-red">【联系电话：</span><span class="tx-red" ng-bind="consult.telphone"></span><span class="tx-red">】</span></div>
+					<div class="col-sm-4 tx-question xiaos" ><span>咨询时间：</span><span  ng-bind="consult.askTime | date:'yyyy-MM-dd HH:mm:ss'">2016-07-20 12:29:38</span></div>
+				</div>
+				<div class="row" style="padding-top: 10px">
+					<div class="col-sm-8 tx-reply"><span>管理员回复：</span><span ng-bind="consult.answer">您好！</span></div>
+					<div class="col-sm-4 tx-reply" ng-if="consult.replyTime !='' && consult.replyTime != null && consult.replyTime != undefined"><span>回复时间：</span><span  ng-bind="consult.replyTime | date:'yyyy-MM-dd HH:mm:ss'">2016-07-20 12:29:38</span></div>
+					<div class="col-sm-4 tx-reply" ng-if="consult.replyTime =='' || consult.replyTime == null || consult.replyTime == undefined"><button  ng-click="replyConsult(consult)" type="button" class="btn btn-danger btn-xs">回复</button></div>
+				</div>
+				<div ng-show="editState[consult.id]">
+					<textarea style="width: 720px;height: 80px" class="form-control" rows="3" id="reply{{consult.id}}"></textarea>
+					<div style="text-align: center;padding-top: 5px">
+						<button type="button" class="btn btn-primary  btn-xs" ng-click="saveReply(consult.id)">回复</button>
+   						<button type="button" class="btn btn-default  btn-xs" ng-click="closeReply(consult.id)">取消</button>
+   					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--页码-->
+		<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+		<!--页码END-->
+	<!--内容END-->
+</div>
+</div>
+
+

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.CarouselMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Carousel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="bannaPic" property="bannaPic" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="contentUrl" property="contentUrl" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, bannaPic, schoolId, contentUrl
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from carousel
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from carousel
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Carousel" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into carousel (bannaPic, schoolId, 
+      contentUrl)
+    values (#{bannaPic,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}, 
+      #{contentUrl,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Carousel" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into carousel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bannaPic != null" >
+        bannaPic,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="contentUrl != null" >
+        contentUrl,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bannaPic != null" >
+        #{bannaPic,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="contentUrl != null" >
+        #{contentUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Carousel" >
+    update carousel
+    <set >
+      <if test="bannaPic != null" >
+        bannaPic = #{bannaPic,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="contentUrl != null" >
+        contentUrl = #{contentUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Carousel" >
+    update carousel
+    set bannaPic = #{bannaPic,jdbcType=VARCHAR},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      contentUrl = #{contentUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 获取本校的轮播图 -->
+  <select id="getScholdCarousel" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from carousel
+    where schoolId = #{schoolId,jdbcType=INTEGER} order by id desc
+  </select>
+  
+  <!-- 手机端获取本校的轮播图 -->
+  <select id="getScholdCarouselFront" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select 
+     <include refid="Base_Column_List" />
+    from carousel
+    where schoolId = #{schoolId,jdbcType=INTEGER} order by id desc  LIMIT 3
+  </select>
+  
+</mapper>
+

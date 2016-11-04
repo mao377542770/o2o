@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.BoardroomMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Boardroom" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roomName" property="roomName" jdbcType="VARCHAR" />
+    <result column="position" property="position" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomName, position,schoolId
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from boardroom
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from boardroom
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Boardroom" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into boardroom (roomName, position,schoolId
+      )
+    values (#{roomName,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR},#{schoolId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Boardroom" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into boardroom
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomName != null" >
+        roomName,
+      </if>
+      <if test="position != null" >
+        position,
+      </if>
+      <if test="schoolId !=null">
+      	schoolId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomName != null" >
+        #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId !=null">
+      	#{schoolId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Boardroom" >
+    update boardroom
+    <set >
+      <if test="roomName != null" >
+        roomName = #{roomName,jdbcType=VARCHAR},
+      </if>
+      <if test="position != null" >
+        position = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId !=null">
+      	schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Boardroom" >
+    update boardroom
+    set roomName = #{roomName,jdbcType=VARCHAR},
+      position = #{position,jdbcType=VARCHAR},
+      schoolId = #{schoolId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 获取本校的会室 -->
+  <select id="getAllBoardroom" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	select * from boardroom where schoolId = #{schoolId,jdbcType=INTEGER}
+  </select>
+</mapper>

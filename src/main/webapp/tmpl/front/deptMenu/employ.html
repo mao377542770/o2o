@@ -1,0 +1,27 @@
+<!-- 就业办 deptId : 3-->
+<div ng-controller="employMenuCtrl">
+  <div class="head" style=" overflow:hidden">
+    <ul>
+      <a>
+      	<li ui-sref="em_news({schoolId:schoolInfo.schoolId})">
+            <div class="icon"><img src="images/tb_03.png"></div>
+            <p>公告</p>
+        </li>
+        <li ui-sref="recruit({schoolId:schoolInfo.schoolId})">
+          <div class="icon">
+            <img src="images/recruit.png" /></div>
+          <p>招聘资讯</p>
+        </li>
+        <li ui-sref="workStory({schoolId:schoolInfo.schoolId})">
+          <div class="icon">
+            <img src="images/job3.png" /></div>
+          <p>职场故事</p>
+        </li>
+      </a>
+      <div class="claer"></div>
+    </ul>
+    <a ng-hide="needOpened" ui-sref="subscribe">
+      <button type="button" class="btn_a magn-tb1 ft-1">申请开通</button>
+    </a>
+  </div>
+</div>

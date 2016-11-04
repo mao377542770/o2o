@@ -1,0 +1,128 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="LostFoundCtr">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">失物招领</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="attestationMenu">
+			<li role="presentation" id="pass" style="cursor: pointer"><a ng-click="getLostFoundList(0)">未认领</a></li>
+			<li role="presentation" id="refuse" style="cursor: pointer"><a ng-click="getLostFoundList(1)">已认领</a></li>
+		</ul>
+	</div>
+	<div class=" magn tx-r">
+		<button type="button" ng-show="currentState==0" class="btn btn-danger btn-sm" ng-click="openAddlfWin()">&nbsp;发布消息&nbsp;</button>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="magn" style="height:500px">
+			<table class="table table-hover table-striped table-bordered tx-c">
+				<tr>
+					<th style="width:45%" class="tx-c">标题</th>
+					<th style="width:20%" class="tx-c">发布时间</th>
+					<th style="width:20%" class="tx-c" ng-if="currentState == 1">认领时间</th>
+					<th style="width:20%" class="tx-c" ng-if="currentState == 0">操作</th>
+					<th style="width:15%" class="tx-c">状态</th>
+				</tr>
+
+				<tr ng-repeat="lostFound in lostFounds">
+					<td ng-bind="lostFound.title" class="tx-blue tx-l" style="cursor: pointer;" ng-click="showDetailsAndEdit(lostFound)">赵丽华</td>
+					<td ng-bind="lostFound.publishDate">教务处</td>
+					<td ng-bind="lostFound.claimDate" ng-if="currentState == 1">教务处</td>
+					<td ng-if="currentState == 0" ng-click="deletelostfound(lostFound)" class="tx-blue" style="cursor: pointer;">删除</td>
+					<td ng-if="lostFound.state==1" class="tx-green">已认领</td>
+					<td ng-if="lostFound.state==0">
+						<button type="button" class="btn btn-warning btn-sm"  ng-click="openAddrmWin(lostFound.id)">完成认领</button>
+					</td>
+				</tr>
+			</table>
+			<!--页码-->
+			<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+			<!--页码END-->
+		</div>
+	</div>
+	<!--内容END-->
+	
+	<!--添加失物招领公告-->
+	<div class="modal fade" id="addlfModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="lfTitle">添加</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<button type="button" class="btn btn-primary" style="float: right;height: 30px" ng-show="isShowEdit" ng-click="changToEdit()">修改</button>
+						<div class="" style="margin-top:35px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">标题：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" ng-model="title" ng-disabled="!isEdit" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">发布人：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" placeholder="" ng-model="publishser" ng-disabled="!isEdit" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">内容：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" rows="3" ng-model="content" ng-disabled="!isEdit"></textarea>
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3" ng-show="isRemark">
+								<div class="col-fg-2">认领信息：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" rows="3" ng-model="reMarkContent" ng-disabled="true"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-warning" ng-click="saveLostFound()" ng-disabled="!isEdit" id="optionsBtn">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--添加公告End-->
+	
+	<!--认领失物信息-->
+	<div class="modal fade" id="addrmModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="lfTitle">认领信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="" style="margin-top:10px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">认领备注：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" rows="3" ng-model="remark" ></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveRemark()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--认领End-->
+<!--主内容END-->
+</div>

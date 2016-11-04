@@ -1,0 +1,106 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="customController">
+	<!--内容-->
+	<div class="magn">
+		<h3 class="pad2 tx-c">功能订制</h3>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="pad" style="min-height:650px; margin:4px;">
+			<!--已开通-->
+			<div class="panel panel-success">
+				<div class="panel-heading">
+					<h3 class="panel-title">已开通</h3>
+				</div>
+				<ul class="panel-body FD" id="sortable" ng-init="showPop = false">
+					<li ng-repeat="module in myModules" style="float: left; position:relative " id="module{{module.id}}">
+						<!-- <div class="curved_box bd-r tx-c magn tx-gray2 border1 bor-gray bgd-Orange1 bgd-white" style="padding:2px 5px; position:absolute; width:70px; font-size:8px; top:-20px; left:50%; margin-left:-35px;" ng-show="showPop">可拖动排序</div> -->
+						<a type="button" class="btn btn btn-success magn" ng-bind="module.moduleName" ng-mouseenter="showPop = true" ui-sref="{{module.moduleUrl}}" ng-mouseleave="showPop = false">公告</a>
+					</li>
+				</ul>
+			</div>
+			<!--已开通End-->
+			<!--未开通-->
+			<!-- <div class="panel panel-danger">
+				<div class="panel-heading">
+					<h3 class="panel-title">未开通</h3>
+				</div>
+				<div class="panel-body">
+					<div class="FD">
+						<div class="fudong-l magn tx-c" ng-repeat="module in deptModules">
+							<button type="button" class="btn btn btn-danger" ng-bind="module.moduleName">未开通</button>
+							<div ng-show="!applyStatus[module.id]" class="tx-blue xiaos a" ng-click="applyModule(module)">申请开通</div>
+							<div ng-show="applyStatus[module.id]" class="tx-green xiaos" >申请中</div>
+						</div>
+					</div>
+				</div>
+			</div> -->
+			<!--未开通End-->
+		</div>
+	</div>
+	<!--内容END-->
+	
+	<!--发布-->
+<div class="modal fade" id="applyModule"
+	tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">请提交资料，我们会尽快与您联系</h4>
+			</div>
+			<div class="modal-body">
+				<div class="container-fluid magn-tb">
+					<div class="" style="margin-top:10px;">
+						<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+							<div class="col-fg-2">开通版块：</div>
+							<div class="col-fg-3">
+								<input class="form-control" type="text" ng-disabled="true" ng-model="apply"/>
+							</div>
+						</div>
+						<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+							<div class="col-fg-2">单位名称：</div>
+							<div class="col-fg-3">
+								<input class="form-control" type="text" ng-model="school" />
+							</div>
+						</div>
+						<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+							<div class="col-fg-2">所在部门：</div>
+							<div class="col-fg-3">
+								<input class="form-control" type="text" ng-model="deptName" />
+							</div>
+						</div>
+						<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+							<div class="col-fg-2">联系人：</div>
+							<div class="col-fg-3">
+								<input class="form-control" type="text" ng-model="customer" />
+							</div>
+						</div>
+						<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+							<div class="col-fg-2">电话：</div>
+							<div class="col-fg-3">
+								<input class="form-control" type="text" ng-model="phone" />
+							</div>
+						</div>
+						<div
+							class="row magn line-H2 border-b-d bor-gray2 pad-lr-3 tx-gray">
+							* 讯果<br /> * 联系我们<br />
+							* 电话：4001 5007 53</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" ng-click="saveApply()">提交</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!--发布End-->
+
+</div>
+<!--主内容END-->
+
+

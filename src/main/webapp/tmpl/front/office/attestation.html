@@ -1,0 +1,52 @@
+<style type="text/css">
+.mg {
+	margin: 7px auto;
+}
+</style>
+
+<!-- 申请开通,订阅 -->
+<div ng-controller="attestationCtrl">
+	<div onclick="history.go(-1)" class="top">
+		<div class="return">
+			<span>返回</span>
+		</div>
+		<div class="title">申请认证老师</div>
+		<div class="login">
+			<span></span>
+		</div>
+	</div>
+	<div style="height:50px;"></div>
+
+	<div class="container-fluid">
+		<ng-form name="myForm" class="form-horizontal" novalidate>
+			<div class="mg">
+				<label class="col-sm-2 control-label">申请人:</label>
+				<div class="col-sm-10">
+					<input name="applyName" maxlength="20"
+						ng-model="attestation.applyName" required class="form-control" />
+				</div>
+			</div>
+			<div class="mg">
+				<label class="col-sm-2 control-label">申请部门：</label>
+				<div class="col-sm-10">
+					<input name="applyDept" ng-model="attestation.applyDept"
+						maxlength="20" class="form-control" required />
+				</div>
+			</div>
+			<div class="mg"
+				ng-class="{'has-error':myForm.telphone.$error.pattern && myForm.telphone.$dirty}">
+				<label class="col-sm-2 control-label">手机号码:</label>
+				<div class="col-sm-10">
+					<input name="telphone" ng-model="attestation.applyPhone"
+						class="form-control" required ng-pattern="/^[1][0-9]{10}$/"
+						maxlength="11" />
+				</div>
+			</div>
+			<div class="magn">
+				<button ng-disabled="myForm.$invalid" class="btn btn-warning"
+					ng-click="submitAttestation()" style="width:100%">提交</button>
+			</div>
+		</ng-form>
+
+	</div>
+</div>

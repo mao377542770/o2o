@@ -1,0 +1,47 @@
+<style type="text/css">
+.tsy{
+  color: #FF4400;
+}
+.down{
+  width: 30px;
+}
+</style>
+<!--===top  顶部===-->
+<div ng-controller="resourceInfoCtrl">
+  <div class="top">
+    <div onclick="history.back(-1)" class="return">
+      <span>返回</span>
+    </div>
+    <div class="login"></div>
+  </div>
+  <div style="height:50px;"></div>
+
+  <!--公告详情-->
+  <div class="border1 bor-gray1 bgd-white pad bd-r2 col-fg-10 pad-b-6">
+    <div class="magn-lr border-b-s1 bor-gray1 FD">
+      <div class="tx-c">
+        <div class="ft-4 line-H3" ng-bind="resourceInfo.title"></div>
+        <div class="tsy">上传,下载(请登录电脑端)www.xunguox.com</div>
+      </div>
+      <div class="clearfix">
+        <div class="pull-left wz" ng-bind="resourceInfo.date |date:'yyyy-MM-dd HH:mm:ss'"></div>
+        <div class="pull-right wz" ng-bind="resourceInfo.nickName"></div>
+      </div>
+    </div>
+    <div class="magn-lr line-H3">
+      <div class="wz">
+        下载次数:
+        <span ng-bind="resourceInfo.downloadTotal"></span>
+        次
+      </div>
+      <div><b>简介</b></div>
+      <div ng-bind="resourceInfo.introduce"></div>
+      <div><b>其他</b></div>
+      <div ng-bind="resourceInfo.other"></div>
+      <button class="btn btn-info btn-lg btn-block" type="button" ng-click="downResource(resourceInfo.id)">
+        下载
+      </button>
+    </div>
+
+  </div>
+</div>

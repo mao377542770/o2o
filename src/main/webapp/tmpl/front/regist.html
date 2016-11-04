@@ -1,0 +1,99 @@
+<style type="text/css">
+.slbd{
+	border: 1px solid #00a65a;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+</style>
+<div ng-controller="registCtrl">
+	<div ng-init="regDiv = true" ng-hide="regDiv">
+		<div class="bgd-gray9" style="position:fixed; top:50px; width:100%; height:115px;z-index:1">
+			<div class="b ft-4 tx-c line-H4">选择学校</div>
+			<div class="magn FD tx-c">
+	            <input ng-model="keyWord" search="getSchoolList()" style="height:45px; width:70%" class="form-control fudong-l" />
+	            <button ng-click="getSchoolList()" class="btn btn-danger magn-l" style=" width:20%">搜索</button>
+	        </div>
+		</div>
+		
+        <div class="magn border1 bor-gray1 bgd-white pad bd-r2" style="margin-top:120px;">
+            <div ng-click="selectTheSchool(school)" ng-repeat="school in schoolList track by $index" class="FD line-H4 pad border-b-d bor-gray1">
+                <div class="col-fg-9 xiaos tx-hover pad-lr" ng-bind="school.name"></div>
+            </div>
+        </div>
+	</div>
+
+	<ng-form ng-show="regDiv" name="registForm" novalidate>
+		<div class="magn border1 bor-gray1 bgd-white pad bd-r2" style="margin-top:5%;">
+			<div class="FD line-H4 pad border-b-d bor-gray1">
+		    	<div class="col-fg-2-2">学校</div>
+		        <div class="col-fg-7-2" ng-click="regDiv = false"><span class="text-primary slbd" ng-bind="schoolName | schoolFilter"></span></div>
+		    </div>
+			<div class="FD line-H4 pad border-b-d bor-gray1">
+		    	<div class="col-fg-2-2">邮箱</div>
+		        <div class="col-fg-7-2">
+		        	<input check-username required type="email" name="userName" ng-model="user.userName" style="width:95%" class="form-control" placeholder="登录账号"/>
+		        	<span ng-show="registForm.userName.$error.required && registForm.userName.$dirty" class="col-fg-7-2 tx-red">必填</span>
+		        	<span ng-show="registForm.userName.$invalid && registForm.userName.$dirty" class="col-fg-7-2 tx-red">邮箱不正确</span>
+		        	<span ng-show="registForm.userName.$error.us && registForm.userName.$dirty" class="col-fg-7-2 tx-red">邮箱被占用</span>
+		        </div>
+		    </div>
+		    <div class="pad border-b-d bor-gray1">
+		        <div class="line-H4 FD">
+		            <div class="col-fg-2-2">手机号</div>
+		            <div class="col-fg-7-2"><input check-tel type="telphone" ng-pattern="/^[1][0-9]{10}$/"  name="telphone"  ng-model="user.telphone" style="width:95%" class="form-control" maxlength="11" placeholder="选填"/></div>
+		        </div>
+		        <div class="FD">
+		            <div class="col-fg-2-2">&nbsp</div>
+		            <div ng-show="registForm.telphone.$error.pattern" class="col-fg-7-2 tx-red">手机号不正确</div>
+		            <div ng-show="registForm.telphone.$error.required && registForm.telphone.$dirty" class="col-fg-7-2 tx-red">必填</div>
+		            <div ng-show="registForm.telphone.$error.tel && registForm.telphone.$dirty" class="col-fg-7-2 tx-red">手机号被占用</div>
+		        </div>
+		    </div>
+		    <div class="FD line-H4 pad border-b-d bor-gray1">
+		    	<div class="col-fg-2-2">昵称</div>
+		        <div class="col-fg-7-2">
+		        	<input check-nickname required name="nickName" ng-model="user.nickName" style="width:95%" class="form-control" />
+		        	<span ng-show="registForm.nickName.$error.required && registForm.nickName.$dirty" class="col-fg-7-2 tx-red">必填</span>
+		        	<span ng-show="registForm.nickName.$error.nn && registForm.nickName.$dirty" class="col-fg-7-2 tx-red">昵称已被占用</span>
+		        </div>
+		    </div>
+		    <div class="FD line-H4 pad border-b-d bor-gray1">
+		    	<div class="col-fg-2-2">性别</div>
+		        <div ng-init="user.gender = 1" class="col-fg-7-2">
+		        	<label>
+		              <input ng-model="user.gender" type="radio" name="gender" value="0"/> 男
+		            </label>
+		            <label>
+		              <input ng-model="user.gender" type="radio" name="gender" value="1"/> 女
+		            </label>
+		        </div>
+		    </div>
+		    <div class="FD line-H4 pad border-b-d bor-gray1">
+		    	<div class="col-fg-2-2">密码</div>
+		        <div class="col-fg-7-2"><input confirm obj="user" required="" name="password" ng-model="user.passWord" type="password" style="width:95%" class="form-control" /></div>
+		    </div>
+		    <div class="pad border-b-d bor-gray1">
+		        <div class="line-H4 FD">
+		            <div class="col-fg-2-2">确认密码</div>
+		            <div class="col-fg-7-2"><input confirm obj="user" required="" name="confirm" ng-model="user.confirm" type="password" style="width:95%" class="form-control" /></div>
+		        </div>
+		        <div class="FD">
+		            <div class="col-fg-2-2">&nbsp</div>
+		            <div ng-show="registForm.password.$error.required && registForm.confirm.$error.required && registForm.password.$dirty" class="col-fg-7-2 tx-red">密码必填</div>
+		            <div ng-show="user.checkPwd" class="col-fg-7-2 tx-red">两次输入的密码不相同</div>
+		            <div ng-init="registBtn = false" ng-model="registBtn" ng-hide="true" class="col-fg-7-2 tx-red"></div>
+		        </div>
+		    </div>
+		    <div ng-init="selectSchool = true" ng-show="selectSchool"  class="pad border-b-d bor-gray1">
+		        <div class="FD">
+		         	<div class="col-fg-2-2">&nbsp</div>
+		            <div class="col-fg-7-2 tx-red">请选择学校</div>
+		        </div>
+		    </div>
+		</div>
+		
+		<div class="magn">
+			<button ng-click="save()" type="submit" ng-disabled="registForm.$invalid || user.checkPwd || registBtn" class="btn btn-warning" style="width:100%">注册</button>
+		</div>
+	</ng-form>
+</div>

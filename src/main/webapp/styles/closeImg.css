@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+button.myclose {
+	padding: 0;
+	background: 0 0;
+	border: 0;
+}
+
+.myclose {
+	float: left;
+	font-weight: 700;
+	line-height: 1;
+	text-shadow: 0 1px 0 #fff;
+	cursor: pointer;
+}
+
+button {
+	text-transform: none;
+}
+
+button {
+	overflow: visible;
+}
+
+button {
+	margin: 0;
+	font: inherit;
+}
+
+button {
+	font-family: inherit;
+}
+
+.icon {
+	background: url(../ueditor/themes/default/images/icons.png) no-repeat;
+	width: 18px;
+	line-height: 18px;
+	display: inline-block !important;
+}
+
+.icon-add {
+	background-position: -620px -40px;
+}

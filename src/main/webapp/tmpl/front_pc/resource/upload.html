@@ -1,0 +1,92 @@
+<link rel="stylesheet" type="text/css" href="css/upload.css">
+<link href="//cdn.bootcss.com/bootstrap-fileinput/4.3.4/css/fileinput.min.css" rel="stylesheet">
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="box box-success">
+			<div class="box-header with-border">
+				<h3 class="box-title">上传文档</h3>
+			</div>
+			<!-- /.box-header -->	
+			<div class="box-body">
+				<div id="upload-widget" class="clearfix">
+					<div class="upload-steps clearfix">
+						<ul>
+							<li class="step-num active">
+								1
+								<span class="tips">上传文档</span>
+							</li>
+							<li class="step-bar"></li>
+							<li class="step-num">
+								2
+								<span class="tips">补全信息</span>
+							</li>
+							<li class="step-bar"></li>
+							<li class="step-num">
+								3
+								<span class="tips">完成上传</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<hr style="margin:50px 20px;">
+	
+				<div class="clearfix col-sm-offset-1 col-sm-9">
+					<input id="myFile" name="file" type="file" multiple	class="file" accept=".doc,.docx,.ppt,.pptx,.xls,.xlsx,.pdf,.wps,.txt,.epud"/>
+				</div>
+
+				<div class="clearfix col-sm-offset-1 col-sm-9">
+					<button id="uploadBtn" onclick="upload()" style="width:100%;margin-top:30px" type="button" class="btn btn-success hidden">上传</button>
+				</div>
+
+				<div class="clearfix col-sm-offset-1 col-sm-9" style="margin-top:40px">
+					<p class="miaoshu">提示:<br>
+					本网站只支持下列各式:<br>
+					.doc,.docx,.ppt,.pptx,.xls,.xlsx,.pdf,.wps,.txt,.epud 后缀各式文件</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var loaded = false;  //防止重复点击
+	var userId = null;
+
+	$("#myFile").fileinput({
+		language: 'zh',
+		uploadUrl : hostPath+"/resource/uploadFile",
+		allowedFileExtensions : [ 'doc','docx','ppt','pptx','xls','xlsx','pdf','wps','txt','epud'],
+		overwriteInitial : false,
+		uploadExtraData : {
+			userId : '<%=user.getId()%>'
+		},
+	 	showUpload: false, //是否显示上传按钮
+		maxFileSize: 10000,
+		maxFileCount: 1,
+		initialPreviewCount:1,
+		slugCallback : function(filename) {
+			$('#uploadBtn').removeClass('hidden');
+			fileName = filename;
+			return filename;
+		}
+	}).on('fileuploaded', function(event, result) { //回调函数				
+		var res = result.response;
+		if (res.status == 1) {
+			//跳转页面---> 信息补充
+			//alert(res.msg);
+			loaded = false;
+			location.href =hostPath + "/resource#/fullInfo/"+res.data; //获得id
+		}else{
+			alert(res.msg);
+		}
+	});
+
+
+	function upload(){   //主动调用上传
+		if(!loaded){
+			$('#myFile').fileinput('upload');
+			loaded = true;
+		}
+	}
+</script>

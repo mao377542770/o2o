@@ -1,0 +1,36 @@
+<div class="top">
+  <div onclick="javascript:history.back(-1);" class="return">
+    <span>返回</span>
+  </div>
+  <div class="title">提交咨询</div>
+  <div class="login">
+    <span></span>
+  </div>
+</div>
+<div style="height:50px;"></div>
+
+<div ng-controller="toConsultCtrl" class="mg">
+  <div class="container-fluid pad-b-6">
+    <form name="myForm" ng-submit="submit()" class="form-horizontal">
+        <div class="form-group">
+          <legend></legend>
+        </div>
+
+        <div class="form-group pad-l-8">
+          <label for="id2">咨询内容</label>
+          <textarea id="id2" name="question" ng-model="consult.question" class="form-control" rows="4" required></textarea>
+        </div>
+        
+        <div class="form-group pad-l-8" ng-class="{'has-error':myForm.telphone.$error.pattern && myForm.telphone.$dirty}">
+          <label for="id3">手机号码<span class="text-danger">(选填，仅管理员可见)</span></label>
+          <input id="id3" type="tel" name="telphone" ng-model="consult.telphone" ng-pattern="/^[1][0-9]{10}$/" class="form-control" maxlength="11">
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <button ng-disabled="myForm.$invalid" style="width:100%" type="submit" class="btn btn-primary">提交</button>
+          </div>
+        </div>
+    </form>
+  </div>
+</div>

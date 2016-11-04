@@ -1,0 +1,237 @@
+<style type="text/css">
+.user-image{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-top: 13px;
+    
+    /*头像细边
+    border: 2px solid #066599; */
+}
+.logout{
+  color: #fff;
+  margin-top: 12px;
+}
+</style>
+<div>
+    <!--===top  顶部===-->
+    <div class="top" style="z-index:100">
+      <!-- <div class="nothing">
+          <span ng-show="user.id != null" ng-click="logout()" class="logout">注销</span>
+       </div>-->
+     <div class="title">
+         <div class="chose-box fudong-l" ng-click="selectSchool()">
+	        <input class="bgd-gray9 chose tx-l mg-t-a border-gray fudong-l" ng-click="selectSchool()" ng-hide="schoolInfo.schoolName != null && schoolInfo.schoolName!=''" value="选择单位"/>
+	        <div class="s_box1 fudong-r" ng-click="selectSchool()"><img src="images/search.png"></div>
+         </div>
+         <div class="chose-box fudong-l" ng-click="selectSchool()">
+	         <div class="bgd-gray9 chose tx-l mg-t-a border-gray" ng-click="selectSchool()" ng-show="schoolInfo.schoolName != null && schoolInfo.schoolName!=''" ng-bind="schoolInfo.schoolName"></div>
+	         <div class="s_box fudong-r" ng-click="selectSchool()"><img src="images/search.png"></div>
+         </div>
+         <div class="nub-p fudong-l" ng-show="schoolInfo.schoolName != null && schoolInfo.schoolName!='' && schoolInfo.schoolVisits != null && schoolInfo.schoolVisits!=''" class="ft-1 tx-gray4 pad-lr"><span ng-bind="schoolInfo.schoolVisits"></span>人</div>
+        <div class="login fudong-r">
+         <div class="col-fg-10 fudong-l" ng-hide="user.id != null" onclick="location.href=hostPath +'/front/login'">登录</div>
+         <div class="login-2" ui-sref="userInfo" ng-show="user.id != null">
+            <img class="user-image position-tp fudong-l" src="" ng-src="{{user.pic}}" err-src="images/defaultPic.png">
+            <span class="pull-left left-p tx-l" ng-bind="user.nickName"></span>
+         </div>
+      </div>
+       <div class="clearfix" style="clearfix:both;"></div>
+    </div>
+   </div>
+    <div style="height:50px;"></div>
+
+    <!-- 轮播图-->
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="true" data-interval="5000">
+       <!-- 轮播（Carousel）指标 -->
+       <ol class="carousel-indicators">
+          <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
+          <li data-target="#myCarousel" data-slide-to="1" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="2" ng-if="Clength>1"></li>
+          <li data-target="#myCarousel" data-slide-to="3" ng-if="Clength>2"></li>
+       </ol>   
+
+       <!-- 轮播（Carousel）项目 -->       
+       <div class="carousel-inner" style="width:100%;" ng-swipe-left="leftSwipe()" ng-swipe-right="rightSwipe()">
+         <div class="banner_a item active">
+           <img style="width:100%;height: 160px;" ng-src="{{bannerPic1 | imgSrcFilter:'1'}}" err-src="images/banner1.jpg" />
+         </div>
+         <div class="banner_a item" ng-if="Clength>1">
+           <img style="width:100%;height: 160px;" ng-src="{{bannerPic2 | imgSrcFilter:'2'}}" err-src="images/banner2.png" />
+         </div>
+         <div class="banner_a item" ng-if="Clength>2">
+           <img style="width:100%;height: 160px;" ng-src="{{bannerPic3 | imgSrcFilter:'3'}}" err-src="images/banner3.png"/>
+         </div>
+       </div>
+    </div> 
+
+    <!--部门状态-->
+    <div class="ft-5 line-H2 border-b-s bor-gray pad-tb-1 bg-color">
+      <ul class="FD" style="padding-left:15px;">
+           <!-- 这里是固有标签 -->
+           <li class="fudong-l pad-lr-2 ft-3 "><a ui-sref="index.library" ui-sref-active="tx-Orange">图书馆</a></li>
+           <!-- <li class="fudong-l pad-lr-2"><a ui-sref="index.jwc" ui-sref-active="tx-Orange">教务处</a></li> -->
+           <li class="fudong-l pad-lr-2 ft-3"><a ui-sref="index.employ" ui-sref-active="tx-Orange">就业办</a></li>
+           <li class="fudong-l pad-lr-2 ft-3"><a ui-sref="index.workspace" ui-sref-active="tx-Orange">办公区</a></li>
+         </ul>
+         <div class="clear" style="clear:both;"></div>
+    </div>
+    
+    <div ui-view=""></div>
+    <!--公共板块-->
+    <div class="ft-5 line-H2 border-b-s bor-gray bg-color pad-tb-1">
+      <ul class="FD" style="text-align: center;">
+        <li class="pad-lr-2">
+          <a class="tx">公共板块</a>
+        </li>
+      </ul>
+    </div>
+    <div class="head" style="overflow:hidden">
+      <ul>
+        <li ui-sref="schoolActivity({schoolId:schoolInfo.schoolId})">
+          <div class="icon">
+            <img src="images/icon/vote.png"></div>
+          <p>活动投票</p>
+        </li>
+        <li ui-sref="lostFound({schoolId:schoolInfo.schoolId})">
+          <div class="icon">
+            <img src="images/icon/lost.png"></div>
+          <p>失物招领</p>
+        </li>
+      </ul>
+    </div>
+    <!--互助区-->
+    <!-- <div class="ft-5 line-H2 border-b-s bor-gray pad2" style="font-weight:bold;width:100%;text-align:center;">
+    	
+        	<a class="tx" style="position:relative;left:40%;"><img src="images/apple1.png">&nbsp;&nbsp;互助区</a>
+       
+    </div>
+    <div class="head" style="overflow:hidden">
+        <ul>
+          <a href="#">
+           <li>
+               <div class="icon"><img src="images/icon/resources.png"></div>
+               <p>优质资源</p>
+           </li>
+          </a> 
+          <a href="#">
+           <li>
+               <div class="icon"><img src="images/icon/check.png"></div>
+               <p>论文检测</p>
+           </li>
+          </a>
+          <a href="#">
+           <li>
+               <div class="icon"><img src="images/icon/find.png"></div>
+               <p>文献代查</p>
+           </li>
+          </a>
+          <div class="claer" ></div>
+        </ul>
+    </div> -->
+
+    <!--讯果社区-->
+    <div class="ft-5 line-H2 border-b-s bor-gray bg-color pad-tb-1" style="text-align: center;">
+        <div class="pad-lr tx-Orange"><img src="images/apple2.png">&nbsp;&nbsp;讯果社区</div>
+    </div>
+    <div class="head1 pad-tb-2" >
+      <ul>
+        <a ui-sref="resource">
+          <li>
+            <div class="icon1">
+              <img src="images/resourse2.png"></div>
+            <p>优质资源</p>
+          </li>
+        </a>
+        <a ui-sref="affectMoment">
+          <li>
+            <div class="icon1">
+              <img src="images/read2.png" />    
+            </div>
+            <p>阅读时光</p>
+          </li>
+        </a>
+
+        <a ui-sref="relaxMoment">
+          <li>
+            <div class="icon1">
+              <img src="images/relax4.png" />    
+            </div>
+            <p>轻松一刻</p>
+          </li>
+        </a>
+        <div class="claer" ></div>
+      </ul>
+    </div>
+    <!--讯果集市-->
+    <div class="ft-5 line-H2 border-b-s bor-gray bg-color pad-tb-1" style="text-align: center;">
+        <div class="pad-lr tx-Orange"><img src="images/apple2.png">&nbsp;&nbsp;讯果市场</div>
+    </div>
+    <div class="head_1 pad" style="margin-bottom:10px;">
+        <ul class="col-fg-10">
+          <a>
+           <li  onclick="showTip(this,event)">
+               <div class="sc_tp1 fudong-l "><img src="images/sc_1.png" style="width:100%;"></div>
+           </li>
+          </a> 
+          <a>
+           <li class="sc_tp2 fudong-l tx-c ft-3 pad3" onclick="showTip(this,event)">
+               <div class="col-fg-10">商城<br>质量有保障</div>
+           </li>
+          </a> 
+        </ul>
+        <div class="clear" style="clear:both;"></div>
+        <ul class="col-fg-10 pad-t-b">
+          <a>
+           <li onclick="showTip(this,event)">
+               <div class="cp_tp fudong-l tx-c"><img src="images/cp_1.png"></div>
+           </li>
+          </a> 
+          <a>
+           <li onclick="showTip(this,event)">
+               <div class="cp_tp fudong-l tx-c"><img src="images/cp_2.png"></div>
+           </li>
+          </a> 
+          <a>
+           <li onclick="showTip(this,event)">
+               <div class="cp_tp fudong-l tx-c"><img src="images/cp_3.png"></div>
+           </li>
+          </a> 
+          <a>
+           <li onclick="showTip(this,event)">
+               <div class="cp_tp fudong-l tx-c"><img src="images/cp_4.png"></div>
+           </li>
+          </a> 
+         <div class="claer" ></div>
+       </ul>
+    </div>
+    
+    <!-- 提示dialog -->
+    <div id="tipDialog" class="ft-1 tx-gray" style="display:none;padding: 10px 0px 10px 0px;position:absolute;width:20%;border:1px solid rgb(239,239,239);background-color:white;">
+        <p>敬请期待...</p>
+    </div>    
+</div>
+<script type="text/javascript">
+  //启用轮播
+  setTimeout(function() {
+    $('#myCarousel').carousel("next"); //下一帧
+  }, 5000);
+  $("#myCarousel a.left").click(function() {
+    $("#myCarousel").carousel("prev");
+  });
+  $("#myCarousel a.right").click(function() {
+    $("#myCarousel").carousel("next");
+  });
+  
+  
+  function showTip(obj,e){
+ 	$("#tipDialog").hide();
+    var x = $(obj).offset().left;
+    var y = $(obj).offset().top;
+    var $box = $("#tipDialog").show();
+    $box.css('top',y);
+    $box.css('left',x);
+    e.stopPropagation();
+    setTimeout('$("#tipDialog").hide("slow")',1000); 
+  }
+</script>

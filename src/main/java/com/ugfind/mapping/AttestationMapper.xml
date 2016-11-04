@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.AttestationMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Attestation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="applyUserId" property="applyUserId" jdbcType="INTEGER"/>
+    <result column="applyName" property="applyName" jdbcType="VARCHAR" />
+    <result column="applyDept" property="applyDept" jdbcType="VARCHAR" />
+    <result column="applyPhone" property="applyPhone" jdbcType="VARCHAR" />
+    <result column="applyDate" property="applyDate" jdbcType="CHAR" />
+    <result column="atteDate" property="atteDate" jdbcType="CHAR" />
+    <result column="atteUserId" property="atteUserId" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="atteState" property="atteState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, applyUserId,applyName, applyDept, applyPhone, applyDate, atteDate, atteUserId, deptId, schoolId, 
+    atteState
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from attestation
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from attestation
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Attestation" >
+    insert into attestation (applyUserId,applyName, applyDept, 
+      applyPhone, applyDate, atteDate, 
+      atteUserId, deptId, schoolId, 
+      atteState)
+    values (#{applyUserId,jdbcType=INTEGER}, #{applyName,jdbcType=VARCHAR}, #{applyDept,jdbcType=VARCHAR}, 
+      #{applyPhone,jdbcType=VARCHAR}, #{applyDate,jdbcType=CHAR}, #{atteDate,jdbcType=CHAR}, 
+      #{atteUserId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, 
+      #{atteState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Attestation" >
+    insert into attestation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applyUserId != null" >
+        applyUserId,
+      </if>
+      <if test="applyName != null" >
+        applyName,
+      </if>
+      <if test="applyDept != null" >
+        applyDept,
+      </if>
+      <if test="applyPhone != null" >
+        applyPhone,
+      </if>
+      <if test="applyDate != null" >
+        applyDate,
+      </if>
+      <if test="atteDate != null" >
+        atteDate,
+      </if>
+      <if test="atteUserId != null" >
+        atteUserId,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="atteState != null" >
+        atteState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applyUserId != null" >
+        #{applyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="applyName != null" >
+        #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDept != null" >
+        #{applyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPhone != null" >
+        #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=CHAR},
+      </if>
+      <if test="atteDate != null" >
+        #{atteDate,jdbcType=CHAR},
+      </if>
+      <if test="atteUserId != null" >
+        #{atteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="atteState != null" >
+        #{atteState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Attestation" >
+    update attestation
+    <set >
+      <if test="applyUserId != null" >
+        applyUserId = #{applyUserId,jdbcType=INTEGER},
+      </if>
+      <if test="applyName != null" >
+        applyName = #{applyName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDept != null" >
+        applyDept = #{applyDept,jdbcType=VARCHAR},
+      </if>
+      <if test="applyPhone != null" >
+        applyPhone = #{applyPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        applyDate = #{applyDate,jdbcType=CHAR},
+      </if>
+      <if test="atteDate != null" >
+        atteDate = #{atteDate,jdbcType=CHAR},
+      </if>
+      <if test="atteUserId != null" >
+        atteUserId = #{atteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="atteState != null" >
+        atteState = #{atteState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Attestation" >
+    update attestation
+    set applyUserId = #{applyUserId,jdbcType=INTEGER},
+      applyName = #{applyName,jdbcType=VARCHAR},
+      applyDept = #{applyDept,jdbcType=VARCHAR},
+      applyPhone = #{applyPhone,jdbcType=VARCHAR},
+      applyDate = #{applyDate,jdbcType=CHAR},
+      atteDate = #{atteDate,jdbcType=CHAR},
+      atteUserId = #{atteUserId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      atteState = #{atteState,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <resultMap type="com.ugfind.model.Attestation" id="attestationResultMap" extends="BaseResultMap">
+  	<result property="atteUserName" column="atteUserName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <!-- 根据不同的审批状态获取认证申请 -->
+  <select id="getAllAttestation"  resultMap="attestationResultMap">
+  	SELECT
+		b.name atteUserName,
+		a.id,
+		a.applyUserId,
+		a.applyName,
+		a.applyDept,
+		a.applyPhone,
+		a.applyDate,
+		a.atteDate,
+		a.atteUserId,
+		a.deptId,
+		a.schoolId,
+		a.atteState
+	FROM
+		attestation a
+	LEFT JOIN user b ON a.atteUserId = b.id
+	WHERE a.atteState = #{atteState,jdbcType=INTEGER} and a.schoolId = #{schoolId,jdbcType=INTEGER} ORDER BY a.id DESC 
+  </select>
+  
+  <!-- 通过申请用户id获取认证信息 -->
+  <select id="selectByApplyUserId"  resultMap="BaseResultMap" parameterType="map">
+  	SELECT * FROM attestation  WHERE applyUserId = #{applyUserId,jdbcType=INTEGER}
+  </select>
+</mapper>

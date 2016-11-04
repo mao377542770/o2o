@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.LibrarynoteMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Librarynote" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.Librarynote" extends="BaseResultMap" >
+    <result column="presentation" property="presentation" jdbcType="LONGVARCHAR" />
+    <result column="serviceTime" property="serviceTime" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, deptId
+  </sql>
+  <sql id="Blob_Column_List" >
+    presentation, serviceTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from librarynote
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from librarynote
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Librarynote" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into librarynote (schoolId, deptId, 
+      presentation, serviceTime)
+    values (#{schoolId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{presentation,jdbcType=LONGVARCHAR}, #{serviceTime,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Librarynote" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into librarynote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="presentation != null" >
+        presentation,
+      </if>
+      <if test="serviceTime != null" >
+        serviceTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="presentation != null" >
+        #{presentation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Librarynote" >
+    update librarynote
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="presentation != null" >
+        presentation = #{presentation,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="serviceTime != null" >
+        serviceTime = #{serviceTime,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.Librarynote" >
+    update librarynote
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      presentation = #{presentation,jdbcType=LONGVARCHAR},
+      serviceTime = #{serviceTime,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Librarynote" >
+    update librarynote
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <!-- 获取本院本部门的入馆须知 -->
+  <select id="getNoteBydeptAndSchool" resultMap="ResultMapWithBLOBs">
+  	select 
+    	<include refid="Base_Column_List" />
+    	,
+    	<include refid="Blob_Column_List" />
+    from librarynote
+    where schoolId = #{schoolId,jdbcType=INTEGER} and  deptId = #{deptId,jdbcType=INTEGER}
+  </select>
+</mapper>

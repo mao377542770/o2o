@@ -1,0 +1,121 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="literatureController">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">
+			文献资源<span class="font-1 xiaos a tx-blue pad-l"></span>
+		</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="literTypes">
+			<li role="presentation" ng-repeat="type in literatureTypes" id="type{{type.id}}" ng-class="{true:'active',false:''}[isActive[type.id]]" ng-click="getLiteratureList(type.id)">
+				<a style="cursor: pointer;" ng-show="!editType[type.id]"><span ng-bind="type.name"></span>
+					<span class="glyphicon glyphicon-edit xiaos" style="font-size:12px; margin-left:5px; color:#0697da;" aria-hidden="true" ng-click="showEditType(type.id)"></span>
+				</a>
+				<a ng-show="editType[type.id]"><input id="editName{{type.id}}" style="margin-top:8px;width: 100px;" maxlength="5" ng-value="type.name"/>
+					<button type="button" class="btn btn-danger btn-xs" style="height: 30px" ng-click="saveTypeEdit(type)">保存</button>
+					<button type="button" class="btn btn-default btn-xs" style="height: 30px" ng-click="closeEditType(type.id)">取消</button>
+				</a>
+			</li>
+			<li ng-show="isAdd" role="presentation"><input style="margin-top:8px" ng-model="typeName"/></li>
+			<!-- <li class="tx-r line-H1 xiaos pad-lr tx-blue a" ng-click="manageType()">管理</li> -->
+		</ul>
+	</div>
+	<div class=" magn tx-r">
+		<button type="button" class="btn btn-danger btn-sm" style="" ng-click="opendAddWin()">&nbsp;添&nbsp;加&nbsp;</button>
+	</div>
+	<div class="main" style="margin-top:10px;">
+		<div class="pad" style="margin:4px;">
+			<div class="border-b-d bor-gray2 pad-lr-3 sbhg" ng-repeat="literature in literatureList">
+				<div class="row pad">
+					<div class="col-sm-9 tx-blue xiaos"><span ng-bind="$index+1"></span>.<a style="color:#0697da" href="{{literature.literatureUrl | urlFilter}}" target="_blank" ng-bind="literature.name"></a><span class="tx-gray pad-lr ft-1" ng-click="showEdit(literature,0)">（简介）</span></div>
+					<div class="col-sm-1 tx-blue xiaos" ng-click="showEdit(literature,1)">修改</div>
+					<div class="col-sm-1 tx-gray xiaos" ng-click="deleteLiter(literature)">删除</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--内容END-->
+	<!--页码-->
+		<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+	<!--页码END-->
+
+
+	<!--发布-->
+	<div class="modal fade" id="literatureWin" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">添加</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="" style="margin-top:10px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">数据库名称：</div>
+								<div class="col-fg-3">
+									<input class="form-control" style="width:355px" type="text" ng-disabled="showContent" ng-model="literName" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">访问地址：</div>
+								<div class="col-fg-3">
+									<input class="form-control" style="width:355px" type="text" ng-disabled="showContent" ng-model="literUrl" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">简介：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" ng-disabled="showContent" ng-model="literAbs" style="width: 520;height: 210px;" rows="3"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" ng-disabled="showContent" class="btn btn-primary" ng-click="saveAddLiterature()">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--发布End-->
+	
+	<!-- 类型编辑框 -->
+	<div class="modal fade" id="typeModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">文档类型管理</h4>
+				</div>
+				<div class="modal-body">
+					<ul class="list-group">
+					   <li class="list-group-item" ng-repeat="type in literatureTypes" >
+					   		<span ng-bind="type.name"></span>
+					   		<button type="button" ng-click="deleteType(type.id)" class="myclose" aria-label="Close" style="width:25px; height:25px; font-size:25px;float:right">
+					   			<span aria-hidden="true">&times;</span>
+					   		</button>
+					   </li>
+					</ul>
+					<div>
+						<input class="form-control" type="text"  ng-model="newTypeName" style="width: 300px;height:33px;float: left" />
+						<button type="button" class="btn btn-primary" style="float: left;margin-left: 30px" ng-click="saveAddType()">添加</button>
+					</div>
+				</div>
+				<div class="modal-footer" style="margin-top: 20px">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+		</div>
+		<!-- 类型end -->
+	</div>
+</div>
+<!--主内容END-->

@@ -1,0 +1,122 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="presention">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">入馆须知</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="libraryRules">
+			<li style="cursor: pointer;" id="present" role="presentation" ng-click="showPersent()"><a>本馆简介</a></li>
+			<li style="cursor: pointer;" id="serviceTime" role="presentation" ng-click="showServiceTime()"><a>开放时间</a></li>
+			<li style="cursor: pointer;" id="rules" role="presentation" ng-click="showRules()"><a>规章制度</a></li>
+		</ul>
+	</div>
+	<!--本馆简介-->
+	<div ng-show="present">
+		<div class=" magn tx-r">
+			<button type="button" class="btn btn-danger btn-sm" ng-click="showEdit(libraryNote,1)">&nbsp;编&nbsp;辑&nbsp;</button>
+		</div>
+		<div class="main" style="margin-top:10px;">
+			<div class="pad shsj" style="min-height:650px; margin:4px;">
+				<div ng-bind-html="presentation">点击编辑添加内容</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 这里有个富文本编辑器 -->
+	<div ng-show="editWin">
+		<div style="margin-top: 20px">
+			<script id="editor" type="text/plain" style="width:500px;height:400px;"></script>
+			<!-- <script>
+            	var ue = UE.getEditor('editor');
+            </script> -->
+		</div>
+		<!--编辑之后的保存取消按钮-->
+		<div class="tx-c">
+			<button class="btn btn-default magn" ng-click="closeEdit()">取消</button>
+			<button class="btn btn-danger magn" ng-click="saveEdit()">保存</button>
+		</div>
+	</div>
+	<!--开放时间-->
+	<div ng-show="serviceTime">
+		<div class=" magn tx-r">
+			<button type="button" class="btn btn-danger btn-sm" ng-click="showEdit(libraryNote,2)">&nbsp;编&nbsp;辑&nbsp;</button>
+		</div>
+		<div class="main" style="margin-top:10px;">
+			<div class="pad" style="min-height:650px; margin:4px;">
+				<p ng-bind-html="serviceNote">点击编辑添加内容</p>
+			</div>
+		</div>
+	</div>
+	<!--规章制度-->
+	<div ng-show="rules">
+		<div class=" magn tx-r" >
+			<button type="button" class="btn btn-danger btn-sm" style="" ng-click="addRule()">&nbsp;添&nbsp;加&nbsp;</button>
+		</div>
+		<div class="main" style="margin-top:10px;">
+			<div class="pad" style="min-height:650px; margin:4px;">
+				<div class="border-b-d bor-gray2 pad-lr-3 sbhg" ng-repeat="rule in rules">
+					<div class="row">
+						<div class="col-sm-9 tx-blue xiaos a" ng-bind="rule.title" ng-click="showContent(rule)">图书馆工作职责</div>
+						<div class="col-sm-1 tx-blue xiaos" ng-click="editRule(rule)">修改</div>
+						<div class="col-sm-1 tx-gray xiaos" ng-click="deleteRule(rule.id)">删除</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-4 tx-gray2"><span>发布人：</span><span ng-bind="rule.publishName"></span></div>
+						<div class="col-sm-6 tx-gray2"><span>发布人：</span><span ng-bind="rule.publishDate"></span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--内容END-->
+	<!--页码-->
+	<!--页码END-->
+
+	<!--规章制度添加-->
+	<div class="modal fade" id="ruleModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalLabel">添加</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid magn-tb">
+						<div class="" style="margin-top:10px;">
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">标题：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" ng-model="title" ng-disabled="details"/>
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">发布人：</div>
+								<div class="col-fg-7">
+									<input class="form-control" type="text" ng-disabled="details" ng-model="publishUser" />
+								</div>
+							</div>
+							<div class="row magn line-H3 border-b-d bor-gray2 pad-lr-3">
+								<div class="col-fg-2">内容：</div>
+								<div class="col-fg-12">
+									<textarea class="form-control" style="height:200px;resize: none;" rows="3" ng-model="content" ng-disabled="details"></textarea>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button type="button" class="btn btn-primary" ng-click="saveRule()" ng-disabled="details">发布</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--发布End-->
+</div>
+<!--主内容END-->

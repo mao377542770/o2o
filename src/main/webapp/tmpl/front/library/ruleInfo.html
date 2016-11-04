@@ -1,0 +1,17 @@
+<!--===top  顶部===-->
+<div ng-controller="ruleInfoCtrl">
+  <!--规章制度-->
+  <div class="magn border1 bor-gray1 bgd-white pad bd-r2 col-fg-10">
+    <div class="magn border-b-s1 bor-gray1 FD">
+      <div class="tx-l">
+        <div class="ft-4 line-H3" ng-bind="rule.title"></div>
+      </div>
+      <div class=" tx-r margin">
+        <div class="ft-3 tx-gray line-H2 fudong-date " ng-bind="rule.publishDate" style="float:left;"></div>
+      </div>
+    </div>
+    <div class="magn pad-tb line-H3">
+      <div class="tu" ng-bind-html="rule.content | trustHtml"></div>
+    </div>
+  </div>
+</div>

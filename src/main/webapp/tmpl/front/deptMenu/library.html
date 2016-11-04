@@ -1,0 +1,29 @@
+<!--图书馆  deptId : 1-->
+<div ng-controller="libraryMenuCtrl">    
+    <div class="head" style="overflow:hidden">
+        <ul>
+          <a>
+             <li ui-sref="lb_news({schoolId:schoolInfo.schoolId})">
+                 <div class="icon"><img src="images/tb_03.png"></div>
+                 <p>公告</p>
+             </li>
+             <li ui-sref="literature({schoolId:schoolInfo.schoolId})">
+                 <div class="icon"><img src="images/tb_07.png"></div>
+                 <p>文献资源</p>
+             </li>
+             <li ui-sref="policy({schoolId:schoolInfo.schoolId})">
+                 <div class="icon"><img src="images/tb_05.png"></div>
+                 <p>入馆须知</p>
+             </li>
+             <li ui-sref="consult({deptId:1})">
+               <div class="icon"><img src="images/tb_06.png"></div>
+               <p>咨询</p>
+             </li>
+          </a>
+          <div class="claer"></div>
+        </ul>
+        <a ng-hide="needOpened" ui-sref="subscribe">
+      <button type="button" class="btn_a magn-tb1 ft-1">申请开通</button>
+        </a>
+    </div>
+</div>

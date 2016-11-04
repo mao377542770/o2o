@@ -1,0 +1,15 @@
+<div ng-controller="selectSchoolCtrl" ng-init="regDiv = false" ng-hide="regDiv">
+	<div class="bgd-gray9" style="position:fixed; top:0px; width:100%; height:115px;z-index:1">
+		<div class="b ft-4 tx-c line-H4">选择学校</div>
+		<div class="magn FD tx-c">
+            <input ng-model="keyWord" search="getSchoolList()" style="height:45px; width:70%" class="form-control fudong-l" />
+            <button ng-click="getSchoolList()" class="btn btn-danger magn-l" style=" width:20%">搜索</button>
+        </div>
+	</div>
+	
+    <div class="magn border1 bor-gray1 bgd-white pad bd-r2" style="padding-top:100px;">
+        <div ng-click="selectTheSchool(school)" ng-repeat="school in schoolList track by $index" class="FD line-H4 pad border-b-d bor-gray1">
+            <div class="col-fg-9 xiaos tx-hover pad-lr" ng-bind="school.name"></div>
+        </div>
+    </div>
+</div>

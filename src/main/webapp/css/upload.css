@@ -1,0 +1,63 @@
+#upload-widget .upload-steps {
+    margin: 18px auto 0;
+    width: 950px;
+}
+#upload-widget .upload-steps li {
+    float: left;
+    list-style-type:none;
+}
+#upload-widget .upload-steps li.step-num {
+    border: 2px solid #e4e4e4;
+    border-radius: 19px;
+    color: #e4e4e4;
+    font-size: 24px;
+    height: 32px;
+    line-height: 32px;
+    margin: 0 -2px;
+    position: relative;
+    text-align: center;
+    width: 32px;
+}
+#upload-widget .upload-steps li.step-num .tips {
+    color: #ababab;
+    display: block;
+    font-size: 14px;
+    left: -33px;
+    position: relative;
+    top: 0;
+    width: 100px;
+}
+#upload-widget .upload-steps li.step-num.active {
+    background-color: #1aa97b;
+    border-color: #1aa97b;
+    color: #fff;
+}
+#upload-widget .upload-steps li.step-num.active .tips {
+    color: #1aa97b;
+}
+#upload-widget .upload-steps li.step-bar {
+    background-color: #e4e4e4;
+    height: 8px;
+    margin-top: 15px;
+    width: 322px;
+}
+#upload-widget .upload-steps li.step-bar.active {
+    background-color: #1aa97b;
+}
+#upload-init-container .hoilday-link {
+    display: block;
+    height: 182px;
+    left: 159px;
+    position: absolute;
+    top: 54px;
+    width: 658px;
+}
+
+
+.necessary-text{
+    font-size: 10px;
+    padding-left: 10px;
+}
+.full-width{
+    width: 100%
+}

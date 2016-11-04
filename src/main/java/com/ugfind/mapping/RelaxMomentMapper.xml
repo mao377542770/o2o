@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.RelaxMomentMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.RelaxMoment" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="imgFrefix" property="imgFrefix" jdbcType="VARCHAR" />
+    <result column="imgPath" property="imgPath" jdbcType="VARCHAR" />
+    <result column="publishDate" property="publishDate" jdbcType="CHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="isShow" property="isShow" jdbcType="INTEGER" />
+    <result column="viewCount" property="viewCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.RelaxMoment" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, imgFrefix, imgPath, publishDate, publisher, isShow, viewCount
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from relax_moment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from relax_moment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.RelaxMoment" >
+    insert into relax_moment (id, title, imgFrefix, 
+      imgPath, publishDate, publisher, 
+      isShow, viewCount, content
+      )
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgFrefix,jdbcType=VARCHAR}, 
+      #{imgPath,jdbcType=VARCHAR}, #{publishDate,jdbcType=CHAR}, #{publisher,jdbcType=VARCHAR}, 
+      #{isShow,jdbcType=INTEGER}, #{viewCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.RelaxMoment" >
+    insert into relax_moment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="imgFrefix != null" >
+        imgFrefix,
+      </if>
+      <if test="imgPath != null" >
+        imgPath,
+      </if>
+      <if test="publishDate != null" >
+        publishDate,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="isShow != null" >
+        isShow,
+      </if>
+      <if test="viewCount != null" >
+        viewCount,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFrefix != null" >
+        #{imgFrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.RelaxMoment" >
+    update relax_moment
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgFrefix != null" >
+        imgFrefix = #{imgFrefix,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        imgPath = #{imgPath,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publishDate = #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null" >
+        isShow = #{isShow,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.RelaxMoment" >
+    update relax_moment
+    set title = #{title,jdbcType=VARCHAR},
+      imgFrefix = #{imgFrefix,jdbcType=VARCHAR},
+      imgPath = #{imgPath,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      isShow = #{isShow,jdbcType=INTEGER},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.RelaxMoment" >
+    update relax_moment
+    set title = #{title,jdbcType=VARCHAR},
+      imgFrefix = #{imgFrefix,jdbcType=VARCHAR},
+      imgPath = #{imgPath,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      isShow = #{isShow,jdbcType=INTEGER},
+      viewCount = #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 以下是自己加的代码 -->
+  <!-- 前台页面获取轻松时刻列表 -->
+  <select id="getRelaxMomentByPage" parameterType="com.ugfind.model.PageVo" resultMap="ResultMapWithBLOBs">
+  	SELECT * FROM relax_moment
+    WHERE isShow = 1
+    ORDER BY id DESC LIMIT #{currentIndex},#{itemsPerPage}	
+  </select>
+ <!--  获取前台页面获取轻松时刻数量 -->
+  <select id="getRelaxMomentCount" parameterType="map" resultType="Integer">
+  	SELECT count(id) FROM relax_moment
+    WHERE isShow = 1
+  </select>
+  
+  <!-- 阅览数量加 1 -->
+  <update id="addViewCount" parameterType="java.lang.Integer">
+  	update relax_moment set viewCount = viewCount + 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

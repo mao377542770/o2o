@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.BespokeMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Bespoke" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="roomId" property="roomId" jdbcType="INTEGER" />
+    <result column="startTime" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="endTime" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="appUser" property="appUser" jdbcType="INTEGER" />
+    <result column="createTime" property="createTime" jdbcType="CHAR" />
+    <result column="deleteUserId" property="deleteUserId" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="deleteTime" property="deleteTime" jdbcType="CHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, roomId, startTime, endTime, appUser,deleteUserId,state,deleteTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bespoke
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bespoke
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Bespoke" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bespoke (roomId, 
+      startTime, endTime, appUser, createTime,deleteUserId,deleteTime
+      )
+    values (#{roomId,jdbcType=INTEGER}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{appUser,jdbcType=INTEGER}, #{createTime,jdbcType=CHAR},#{deleteUserId,jdbcType=INTEGER}, #{deleteTime,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Bespoke" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bespoke
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        roomId,
+      </if>
+      <if test="startTime != null" >
+        startTime,
+      </if>
+      <if test="endTime != null" >
+        endTime,
+      </if>
+      <if test="appUser != null" >
+        appUser,
+      </if>
+      <if test="createTime != null" >
+        createTime,
+      </if>
+      <if test="deleteUserId != null" >
+        deleteUserId,
+      </if>
+      <if test="deleteTime != null" >
+        deleteTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roomId != null" >
+        #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appUser != null" >
+        #{appUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="deleteUserId != null" >
+        #{deleteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Bespoke" >
+    update bespoke
+    <set >
+      <if test="roomId != null" >
+        roomId = #{roomId,jdbcType=INTEGER},
+      </if>
+      <if test="startTime != null" >
+        startTime = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        endTime = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="appUser != null" >
+        appUser = #{appUser,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        createTime = #{createTime,jdbcType=CHAR},
+      </if>
+      <if test="deleteUserId != null" >
+        deleteUserId = #{deleteUserId,jdbcType=INTEGER},
+      </if>
+      <if test="deleteTime != null" >
+        deleteTime = #{deleteTime,jdbcType=CHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Bespoke" >
+    update bespoke
+    set roomId = #{roomId,jdbcType=INTEGER},
+      startTime = #{startTime,jdbcType=TIMESTAMP},
+      endTime = #{endTime,jdbcType=TIMESTAMP},
+      appUser = #{appUser,jdbcType=INTEGER},
+      createTime = #{createTime,jdbcType=CHAR},
+      deleteUserId = #{deleteUserId,jdbcType=INTEGER},
+      deleteTime = #{deleteTime,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 关联user后的resultmap -->
+  <resultMap type="com.ugfind.model.Bespoke" id="bespokeResultMap" extends="BaseResultMap">
+  	<result property="nickName" column="nickName" jdbcType="VARCHAR"/>
+  	<result property="phone" column="phone" jdbcType="VARCHAR"/>
+  	<result property="deleteUser" column="deleteUser" jdbcType="VARCHAR"/>
+  	<result property="deletePhone" column="deletePhone" jdbcType="VARCHAR"/>
+  	<result property="deleteUserName" column="deleteUserName" jdbcType="VARCHAR"/>
+  	<result property="boardName" column="boardName" jdbcType="VARCHAR"/>
+  </resultMap>
+  
+  <!-- 根据会室获取指定日期会室预约情况 -->
+  <select id="getBespokeByRoom" parameterType="com.ugfind.model.BespokeParameter" resultMap="bespokeResultMap">
+  	SELECT
+		bespoke.id,
+		bespoke.roomId,
+		bespoke.startTime,
+		bespoke.endTime,
+		bespoke.appUser,
+		user.nickName nickName,
+		user.phone phone
+	FROM
+		bespoke
+	INNER JOIN user ON bespoke.appUser = user.id
+	WHERE bespoke.startTime BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}
+	AND bespoke.roomId = #{roomId,jdbcType=INTEGER} AND bespoke.state = 1
+  </select>
+  
+  <!-- 后台管理员获取某一个会室的所有预约情况 -->
+  <select id="getBespokeBack" parameterType="com.ugfind.model.BespokeConfig" resultMap="bespokeResultMap">
+  	SELECT
+		bespoke.id,
+		bespoke.roomId,
+		bespoke.startTime,
+		bespoke.endTime,
+		bespoke.appUser,
+		user.name nickName,
+		user.telphone phone
+	FROM
+		bespoke
+	left JOIN user ON bespoke.appUser = user.id
+	WHERE bespoke.roomId = #{roomId,jdbcType=INTEGER} 
+	AND bespoke.startTime>= #{thisDay,jdbcType=TIMESTAMP}
+	AND bespoke.state = 1
+	ORDER BY bespoke.startTime
+  </select>
+  
+  <!-- 查看指定时间段该会室是否已经被预约 -->
+  <select id="checkBespokeState" parameterType="com.ugfind.model.BespokeParameter" resultType="java.lang.Integer">
+  	SELECT
+		count(id) num
+	FROM
+		bespoke
+	WHERE roomId = #{roomId,jdbcType=INTEGER} AND state = 1 AND 
+		(
+			(#{startTime,jdbcType=TIMESTAMP} BETWEEN startTime AND endTime) 
+			OR 
+		  	(#{endTime,jdbcType=TIMESTAMP} BETWEEN startTime AND endTime)
+		  	OR 
+		  	((startTime BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}) AND (endTime BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}))
+		  	OR 
+		  	(startTime BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP}) 
+		  	OR 
+		  	(endTime BETWEEN #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP})
+		 )
+  </select>
+  
+  <!-- 判断时间 -->
+  <select id="judgeTime" parameterType="com.ugfind.model.BespokeParameter" resultType="java.lang.Integer">
+  	SELECT
+		count(id) num
+	FROM
+		bespoke
+	WHERE 	
+		#{startTime,jdbcType=TIMESTAMP} BETWEEN startTime AND endTime AND bespoke.roomId = #{roomId,jdbcType=INTEGER} AND bespoke.state = 1
+  </select>
+  
+  <!-- 关联user后的resultmap -->
+  <resultMap type="com.ugfind.model.BoardroomVo" id="roomVoResultMap" extends="com.ugfind.dao.BoardroomMapper.BaseResultMap">
+  	<collection property="list" ofType="com.ugfind.model.Bespoke">
+		<result column="bId" property="id" />
+		<result column="roomId" property="roomId" />
+		<result column="startTime" property="startTime" />
+		<result column="endTime" property="endTime" />
+		<result column="appUser" property="appUser" />
+		<result column="nickName" property="nickName" />
+		<result column="phone" property="phone" />
+	</collection>
+  </resultMap>
+  
+  <!-- 前台    根据会室获取指定日期会室 及  预约情况 -->
+  <select id="getFrontRoomList" parameterType="com.ugfind.model.BespokeParameter" resultMap="roomVoResultMap">
+	  SELECT a.*,b.id as bId,b.roomId,b.startTime,b.endTime,b.appUser,c.nickName,c.telphone phone
+		FROM boardroom a
+		left join bespoke b on a.id=b.roomId and b.startTime >= #{startTime,jdbcType=TIMESTAMP} AND #{endTime,jdbcType=TIMESTAMP} >= b.endTime AND b.state = 1
+		left JOIN user c ON b.appUser = c.id
+		WHERE a.schoolId =#{schoolId,jdbcType=INTEGER} 
+	  	ORDER BY a.id asc,b.startTime asc
+  </select>
+  
+  <!-- 前台    根据会室获取指定日期会室预约详情 -->
+  <select id="getBespokeBackByRoomIdAndDate" parameterType="map" resultType="com.ugfind.model.Bespoke">
+	  SELECT a.*, b.name nickName, b.telphone phone
+		FROM bespoke a
+		left JOIN user b ON a.appUser = b.id
+		WHERE a.roomId = #{roomId,jdbcType=INTEGER} and a.startTime >= #{startTime,jdbcType=VARCHAR} AND #{endTime,jdbcType=VARCHAR} >= a.endTime AND a.state = 1
+	  	ORDER BY a.startTime asc
+  </select>
+  
+ <!-- 分页获取会室预约删除的记录 -->
+ <select id="selectDeleteRecord" parameterType="com.ugfind.model.BespokePageConfig" resultMap="bespokeResultMap">
+ 	SELECT
+		a.id,
+		a.roomId,
+		a.startTime,
+		a.endTime,
+		a.appUser,
+		a.createTime,
+		a.deleteUserId,
+		a.deleteTime,
+		b.roomName boardName,
+		c.name nickName,
+		d.userName deleteUserName,
+		d.telphone deletePhone,
+		d.name deleteUser
+	FROM
+		bespoke a
+	INNER JOIN boardroom b ON a.roomId = b.id and b.schoolId = #{schoolId,jdbcType=INTEGER}
+	LEFT JOIN user c ON a.appUser = c.id
+	LEFT JOIN user d ON a.deleteUserId = d.id
+	WHERE a.state = 0 
+	ORDER BY a.deleteTime DESC  LIMIT #{currentIndex},#{itemsPerPage}
+ </select>
+ 
+ <!--获取删除的条数  -->
+ <select id="getDeleteCount" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+ 	SELECT count(a.id) num 
+ 	FROM bespoke a
+ 	INNER JOIN boardroom b ON a.roomId = b.id and b.schoolId = #{schoolId,jdbcType=INTEGER}
+ 	WHERE a.state = 0
+ </select>
+</mapper>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.DeadlineMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Deadline" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="moduleId" property="moduleId" jdbcType="INTEGER" />
+    <result column="sequence" property="sequence" jdbcType="INTEGER" />
+    <result column="endDate" property="endDate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, deptId, moduleId, sequence, endDate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from deadline
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from deadline
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Deadline" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into deadline (schoolId, deptId, 
+      moduleId, sequence, endDate
+      )
+    values (#{schoolId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{moduleId,jdbcType=INTEGER}, #{sequence,jdbcType=INTEGER}, #{endDate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Deadline" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into deadline
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="moduleId != null" >
+        moduleId,
+      </if>
+      <if test="sequence != null" >
+        sequence,
+      </if>
+      <if test="endDate != null" >
+        endDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleId != null" >
+        #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Deadline" >
+    update deadline
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="moduleId != null" >
+        moduleId = #{moduleId,jdbcType=INTEGER},
+      </if>
+      <if test="sequence != null" >
+        sequence = #{sequence,jdbcType=INTEGER},
+      </if>
+      <if test="endDate != null" >
+        endDate = #{endDate,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Deadline" >
+    update deadline
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      moduleId = #{moduleId,jdbcType=INTEGER},
+      sequence = #{sequence,jdbcType=INTEGER},
+      endDate = #{endDate,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap type="com.ugfind.model.Deadline" id="deadLineResultType" extends="BaseResultMap">
+  	<result column="moduleName" property="moduleName" jdbcType="INTEGER" />
+  	<result column="moduleUrl" property="moduleUrl" jdbcType="INTEGER" />
+  </resultMap>
+  
+  <!-- 获取本部门所有已开通的功能 -->
+  <select id="getMyAllModule" resultMap="deadLineResultType">
+  	SELECT
+		a.id id,
+		a.schoolId schoolId,
+		a.deptId deptId,
+		a.moduleId moduleId,
+		a.sequence sequence,
+		a.endDate endDate,
+		b.moduleName moduleName,
+		b.moduleUrl moduleUrl
+		FROM
+		deadline a
+	INNER JOIN module b ON a.moduleId = b.id
+	WHERE
+		a.schoolId = #{schoolId,jdbcType=INTEGER} and a.deptId = #{deptId,jdbcType=INTEGER} order by a.sequence
+  </select>
+  
+  <!-- 修改排序 -->
+  <update id="updateSequence" parameterType="java.util.List">
+  	<foreach collection="list" item="item" index="index" open="" close="" separator=";">
+  		update deadline
+  			<set>
+    		sequence = ${item.sequence}
+    		</set>
+    	where id = ${item.id}
+  	</foreach>
+  </update>
+  
+</mapper>

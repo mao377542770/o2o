@@ -1,0 +1,30 @@
+<style type="text/css">
+  .div_mg{
+    margin: 4% 0 4% 0
+  }
+</style>
+<!--===top  顶部===-->
+<div class="top">
+   <div ui-sref="index" class="return">
+      <span>返回</span>
+   </div>
+   <div class="title">阅读时光</div>
+   <div class="login">
+       <span></span>
+   </div>
+</div>
+<div style="height:50px;"></div>
+
+<div ng-controller="affectCtrl" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container pad-b-6">
+    <div  ui-sref="affectMomentInfo({affectId:affect.id})" ng-repeat="affect in affectList" class="row table_bordered div_mg" >
+    <div class=" fudong_tp magn-r-1 height-h"  style="float:left;width:28%">
+    	<img class="height-h" ng-if="affect.imgPath != null && affect.imgPath != ''" ng-src="{{affect.imgFrefix}}{{affect.imgPath}}" err-src="images/xg.png"/>
+    	<img class="height-h" ng-if="affect.imgPath == null || affect.imgPath == ''" src="images/xg.png" />
+    </div>
+    <div class=" fudong_text " style="float:left;width:70%;">
+       <div class="title_h1 ft-5 line-H5" style="font-weight:bold;" ng-bind="affect.title | titleFilter"></div>
+       <div class="p_date ft-1 tx-gray magn-t-m"><span ng-bind="affect.publishDate | publishDateFilter"></span><span class="magn-l">阅{{affect.viewCount}}次</span></div>
+       <div class="ft-1 tx-gray" ng-bind="affect.publisher"></div>
+    </div>
+  </div>
+</div>

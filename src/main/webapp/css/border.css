@@ -1,0 +1,119 @@
+.border1{
+	border:1px solid;
+}
+.border2{
+	border:10px solid;
+}
+.border3{
+	border:2px solid;
+}
+.border-d{
+	border:1px dashed;
+}
+.border-gray{
+	border:1px solid #e3e3e3;
+}
+.border-t-d{
+	border-top:1px dashed;
+}
+.border-b-d{
+	border-bottom:1px dashed;
+}
+.border-l-d{
+	border-left:1px dashed;
+}
+.border-r-d{
+	border-right:1px dashed;
+}
+.border-t-s{
+	border-top:1px solid;
+}
+.border-b-s{
+	border-bottom:1px solid;
+}
+
+.border-b-s2{
+	border-bottom:2px solid;
+}
+.border-l-s{
+	border-left:1px solid;
+}
+.border-r-s{
+	border-right:1px solid;
+}
+
+.border-r-sg{
+	border-right:1px solid #ccc;
+}
+
+.border-r-dt{
+	border-right:1px dotted;
+}
+.border-t-dt{
+	border-top:1px dotted;
+}
+.border-b-dt{
+	border-bottom:1px dotted;
+}
+.border-l-dt{
+	border-left:1px dotted;
+}
+.bd-r{
+	border-radius:5px;
+}
+.bd-r2{
+	border-radius:3px;
+}
+.bd-r-t{
+	border-top-left-radius:5px;
+	border-top-right-radius:5px;
+}
+.bor-Orange{
+	border-color:#ffdcd3;
+}
+.bor-Orange1{
+	border-color:#EE491F;
+}
+.bor-Orange2{
+	border-color:#ffc6b7;
+}
+.bor-gray{
+	border-color:#ccc;
+}
+.bor-gray1{
+	border-color:#eee;
+}
+.bor-gray2{
+	border-color:#E1E1E1;
+}
+.bor-gray3{
+	border-color:#999;
+}
+
+
+.bor-green{
+	border-color:#5cb85c;
+}
+.bor-green1{
+	border-color:#093;
+}
+.bor-018{
+	border-color:#0184dc;
+}
+.bor-primary{
+	border-color:#337ab7;
+}
+
+
+/*会室预约   手机端*/
+.time-t{border-bottom:1px solid rgb(239,239,239);}
+.date-t{border:1px solid #E4E4E4;}
+.room_1-t,.room_2-t{border-bottom:1px solid rgb(239,239,239);}
+.room_name-t{border:1px solid #e9e6e6;background-color: #ededed;}
+.book-t1,.book-t2{border: 1px solid #E4E4E4;width:40%;color:rgb(137, 134, 133);background-color: rgb(243, 241, 241);}
+.detail-t1-a,.detail-t1-m,.detail-t2-a,.detail-t2-m{border:1px solid #E4E4E4;color:rgb(137, 134, 133);background-color: rgb(243, 241, 241);}
+.end-t1,.end-t2{border:1px solid rgb(239,239,239);}
+/*预约效果*/ 
+.line-t1,.line-t2{border:1px solid rgb(239,239,239);}
+
+

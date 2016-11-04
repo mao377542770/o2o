@@ -1,0 +1,72 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="attestationCtr">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">老师认证</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="attestationMenu">
+			<li role="presentation" id="applying" style="cursor: pointer"><a ng-click="getAttestationByState(0)">申请中</a></li>
+			<li role="presentation" id="pass" style="cursor: pointer"><a ng-click="getAttestationByState(1)">已通过</a></li>
+			<li role="presentation" id="refuse" style="cursor: pointer"><a ng-click="getAttestationByState(2)">已拒绝</a></li>
+		</ul>
+	</div>
+
+	<div class="main" style="margin-top:10px;">
+		<div class="magn" style="height:500px">
+			<table class="table table-hover table-striped table-bordered tx-c">
+				<tr>
+					<th style="width:10%" class="tx-c">申请人</th>
+					<th style="width:13%" class="tx-c">部门</th>
+					<th style="width:15%" class="tx-c">电话</th>
+					<th style="width:10%" class="tx-c">状态</th>
+					<th style="width:15%" class="tx-c">申请日期</th>
+					<th style="width:15%" class="tx-c" ng-if="attState==1 || attState==2">操作日期</th>
+					<th style="width:13%" class="tx-c" ng-if="attState==1 || attState==2">认证人</th>
+					<th style="width:20%" class="tx-c" ng-if="attState==0">操作</th>
+					<th style="width:10%" class="tx-c" ng-if="attState==2">删除</th>
+				</tr>
+
+				<tr ng-repeat="attestation in attestations">
+					<td ng-bind="attestation.applyName">赵丽华</td>
+					<td ng-bind="attestation.applyDept">教务处</td>
+					<td ng-bind="attestation.applyPhone">12311456487</td>
+					<td ng-bind="attestation.atteState | stateFilter" class="tx-blue" ng-if="attestation.atteState == 0">已拒绝</td>
+					<td ng-bind="attestation.atteState | stateFilter" class="tx-green" ng-if="attestation.atteState == 1">已拒绝</td>
+					<td ng-bind="attestation.atteState | stateFilter" class="tx-red" ng-if="attestation.atteState == 2">已拒绝</td>
+					<td ng-bind="attestation.applyDate">2015-01-03</td>
+					<td ng-bind="attestation.atteDate" ng-if="attState==1 || attState==2">2015-01-03</td>
+					<td ng-bind="attestation.atteUserName" ng-if="attState==1 || attState==2">小明</td>
+					<td ng-if="attState==0">
+						<button type="button" class="btn btn-success btn-sm" ng-click="updateAttestationState(attestation,1)">通过</button>
+						<button type="button" class="btn btn-danger btn-sm"  ng-click="updateAttestationState(attestation,2)">拒绝</button>
+					</td>
+					<td ng-if="attState==2" class="tx-blue a" style="cursor: pointer;" ng-click="deleteAttestation(attestation.id)">删除</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<!--内容END-->
+	
+	<!-- 填写姓名 -->
+	<div class="modal fade" id="nameModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">请输入您的姓名：</h4>
+				</div>
+				<div class="modal-body">
+					<input class="form-control" type="text"  ng-model="checkName" style="width: 300px;height:33px;float: left" />
+				</div>
+				<div class="modal-footer" style="margin-top: 20px">
+					<button type="button" class="btn btn-default" data-dismiss="modal" ng-click="addName()">保存</button>
+				</div>
+			</div>
+		</div>
+	<!--姓名end  -->
+</div>
+<!--主内容END-->
+</div>

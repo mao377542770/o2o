@@ -1,0 +1,25 @@
+.TM{width:350px;margin:0 auto; margin-top:5%;}
+
+.TM_C_T input{border-radius:3px;}
+
+.TM_A{width:350px;left:80px; top:25px;}
+
+.TM_B{ display:block; width:140px; height:30px; margin-left:10px; margin-top:10px;}
+
+.TM_C{overflow:hidden; padding-left:25px;}
+
+.TM_C_left{margin:25px;}
+
+.TM_C_T{width:250px; color:#333;}
+
+.TM_C_T input{width:180px; float:left;}
+
+.TM_C_T span{height:24px; width:100px; display:block; float:right; text-align:center; color:#FFF; line-height:24px;}
+
+.TM_C_T tr{height:40px;}
+
+.TM_C_right{margin:0 25px;}
+
+.TM_C_P{color:#f04518;}
+
+.TM_C_W{color:#999; text-decoration:underline;text-align:right; float:left; width:120px;}

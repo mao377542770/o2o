@@ -1,0 +1,33 @@
+<style type="text/css">
+  .div_mg{
+    margin: 4% 0 4% 0
+  }
+</style>
+<!--===top  顶部===-->
+<div class="top">
+   <div ui-sref="index.employ" class="return">
+      <span>返回</span>
+   </div>
+   <div class="title">公告</div>
+   <div class="login">
+       <span></span>
+   </div>
+</div>
+<div style="height:50px;"></div>
+
+<div ng-controller="emnewsCtrl" infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container pad-b-6">
+    <div  ui-sref="em_newsInfo({newsId:news.id})" ng-repeat="news in newsList track by $index" class="row table_bordered div_mg">
+    <div class=" fudong_tp height-h magn-r-1"  style="float:left;width:28%">
+    	<img ng-if="news.newsImage != null && news.newsImage != ''" class="height-h" ng-src="{{news.newsImage}}" err-src="images/noimage.png" />
+    	<img ng-if="news.newsImage == null || news.newsImage == ''" class="height-h" src="images/noimage.png" />
+    </div>
+    <div class=" fudong_text " style="float:left;width:70%;">
+       <div class="title_h1 ft-5 line-H5 " style="font-weight:bold;" ng-bind="news.title">俞永福"授渔以人"的商业逻辑</div>
+       <div class="p_date ft-1 magn-t-m" style="color:gray;"><span ng-bind="news.publishDate"></span></div>
+       <div class="ft-1  line-H6" style="color:gray;">
+           <div class="ft-1  magn-r fudong-l ">阅<span ng-bind="news.viewCount"></span>次</div> 
+           <div class="ft-1" ng-bind="news.publishUser"></div>
+       </div>       
+    </div>
+  </div>
+</div>

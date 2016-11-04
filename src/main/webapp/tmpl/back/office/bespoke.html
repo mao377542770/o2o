@@ -1,0 +1,167 @@
+<!--主内容-->
+<div class="col-sm-10" ng-controller="bespokeCtr">
+	<!--内容-->
+	<div class="magn FD">
+		<h3 class="pad2 tx-c">会室预约</h3>
+	</div>
+	<div>
+		<ul class="nav nav-tabs" id="bespokeMenu">
+			<li role="presentation" id="boardroom" style="cursor: pointer"><a ng-click="getRooms()">预约情况</a></li>
+			<li role="presentation" id="deketeBe" style="cursor: pointer"><a ng-click="geDeleteList()">删除记录</a></li>
+		</ul>
+	</div>
+	<!-- 会室 -->
+	<div ng-show="deleteState==0">
+		<div class=" magn tx-r">
+			<button type="button" class="btn btn-danger btn-sm" ng-click="showAddWin()">&nbsp;添加会室&nbsp;</button>
+		</div>
+		<div style="padding-top: 20px">
+			<div class="room_1" ng-repeat="room in boardRooms">
+				<div>
+					<a style="height: 36px;width: 40%;" class="list-group-item" ng-bind="room.roomName" ng-click="showBespkes(room.id)">第一会室</a>
+					<div style="width: 30%;margin-left: 45%;margin-top: -4.5%">
+						<button type="button" class="btn btn-success" style="width: 90px" ng-click="bespokeRoom(room.id)">预约</button>
+						<button type="button" class="btn btn-info" style="width: 90px" ng-click="showBespkes(room.id)" id="deatilsBtn{{room.id}}">详情+</button>
+					</div>
+					<div class="btn-group" style="width: 30%;margin-left: 69%;margin-top: -7.5%">
+					   <button type="button" class="btn btn-warning dropdown-toggle " 
+					      data-toggle="dropdown">
+					      会室管理 <span class="caret"></span>
+					   </button>
+					   <ul class="dropdown-menu" role="menu">
+					      <li><a style="cursor: pointer;" ng-click="editRoom(room)">修改会室</a></li>
+					      <li><a style="cursor: pointer;" ng-click="deleteRom(room)">删除会室</a></li>
+					      <li><a style="cursor: pointer;" ng-click="showDetails(room)">会室信息</a></li>
+					   </ul>
+					</div>
+				</div>
+				<div ng-show="showContent[room.id]">
+					<table style="width: 80%" class="table table-hover table-striped table-bordered tx-c">
+						<tr>
+	                       <th style="width:20%" class="tx-c">预约人</th>
+	                       <th style="width:40%" class="tx-c">预约时间段</th>
+	                       <th style="width:20%" class="tx-c">联系电话</th>
+	                       <th style="width:20%" class="tx-c"></th>
+	                   	</tr>
+						<tr ng-repeat="bespoke in bespokes">
+							<td style="width: 20%" ng-bind="bespoke.nickName">赵丽华</td>
+							<td style="width: 40%"><span ng-bind="bespoke.startTime | date:'MM-dd HH:mm'"></span><span>——</span><span ng-bind="bespoke.endTime | date:'MM-dd HH:mm'"></span></td>
+							<td style="width: 20%;cursor: pointer;" ng-bind="bespoke.phone"></td>
+							<td style="width: 20%;cursor: pointer;" ng-click="deleteBespoke(bespoke)">
+								<div class="delete">
+									<img style="width: 20px;height: 20px" src="images/delete.png">&nbsp;&nbsp;删除
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div ng-show="deleteState==1">
+		<div class="main" style="margin-top:20px;">
+			<div class="magn" style="height:500px">
+				<table class="table table-hover table-striped table-bordered tx-c">
+					<tr>
+						<th style="width:25%" class="tx-c">会室</th>
+						<th style="width:10%" class="tx-c">预约人</th>
+						<th style="width:35%" class="tx-c">预约时间段</th>
+						<th style="width:20%" class="tx-c">删除时间</th>
+						<th style="width:10%" class="tx-c">操作人</th>
+					</tr>
+					<tr ng-repeat="bespoke in deleteBsList">
+						<td ng-bind="bespoke.boardName">会室名</td>
+						<td ng-bind="bespoke.nickName">赵丽华</td>
+						<td><span ng-bind="bespoke.startTime | date:'MM-dd HH:mm'"></span><span>——</span><span ng-bind="bespoke.endTime | date:'MM-dd HH:mm'"></span></td>
+						<td ng-bind="bespoke.deleteTime">删除时间</td>
+						<!-- <td class="tx-blue" style="cursor: pointer;" ng-bind="bespoke.deleteUser">操作人</td> -->
+						<td><div class="btn-group">
+					   			<button type="button" class="btn btn-default dropdown-toggle " data-toggle="dropdown" ng-bind="bespoke.deleteUser">会室管理 <span class="caret"></span></button>
+					   				<ul class="dropdown-menu" role="menu">
+					      				<li><a style="cursor: pointer;"><span>用户名：</span><span ng-bind="bespoke.deleteUserName"></span></a></li>
+					      				<li><a style="cursor: pointer;"><span>联系电话：</span><span ng-bind="bespoke.deletePhone"></span></a></li>
+					   				</ul>
+							</div>
+						</td>
+					</tr>
+				</table>
+				<!--页码-->
+				<tm-pagination style="margin-left: 180px;" conf="paginationConf"></tm-pagination>
+				<!--页码END-->
+			</div>
+		</div>
+	</div>
+	<!--内容END-->
+	
+	<!--会室增加，修改详情-->
+	<div class="modal fade" id="roomWin" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">增加会室</h4>
+				</div>
+				<div class="modal-body">
+					<table width="80%" class="magn-a">
+						<tr height="40px">
+							<td width="100">会室名称：</td>
+							<td><input class="form-control" ng-disabled="isEdit"  ng-model="roomName"/></td>
+						</tr>
+						<tr height="40px">
+							<td width="100">会室位置：</td>
+							<td><input class="form-control" ng-disabled="isEdit" ng-model="roomAddress"/></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="saveRoom()" ng-hide="isEdit">保存</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--弹窗结束-->
+<!-- 会室预约时间选择 -->
+<div class="modal fade" id="bespokeRoom" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">会室预约</h4>
+				</div>
+				<div class="modal-body">
+					<table width="80%" class="magn-a">
+						<tr height="40px">
+							<td width="100">开始时间：</td>
+							<td><input class="form-control" ng-blur="judgeStartTime()" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" id="startTime"/></td>
+						</tr>
+						<tr ng-show="isExist1">
+							<td width="100"></td>
+							<td style="color: red;width: 270px" ng-bind="judgeInfoSta"></td>
+						</tr>
+						<tr height="40px">
+							<td width="100">结束时间：</td>
+							<td><input class="form-control" ng-blur="judgeEndTime()" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" id="endTime"/></td>
+						</tr>
+						<tr ng-show="isExist2">
+							<td width="100"></td>
+							<td style="color: red;width: 270px" ng-bind="judgeInfo"></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" ng-disabled="!isBespokeBtn" class="btn btn-primary" ng-click="saveBespoke()">预约</button>
+				</div>
+			</div>
+		</div>
+	</div>
+<!-- 会室预约结束 -->
+</div>
+<!--主内容END-->

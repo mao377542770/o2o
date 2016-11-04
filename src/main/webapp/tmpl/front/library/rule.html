@@ -1,0 +1,8 @@
+<!--规章制度-->
+<div class="magn-tb">
+    <div ng-repeat="rule in rules" ui-sref="policy.ruleInfo({ruleId:rule.id})" class="magn border1 bor-gray1 bgd-white pad bd-r2 tx-l">
+        <div class="tx-blue xiaos" ng-bind="rule.title"></div>
+        <div class="tx-gray" ng-bind="rule.content | titleFilter:'50'"></div>
+        <div class="ft-2 tx-gray" ng-bind="rule.publishDate"></div>
+    </div>
+</div>

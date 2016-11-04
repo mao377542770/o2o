@@ -1,0 +1,58 @@
+<div ng-controller="forgetPwdCtrl">
+  <div onclick="history.go(-1);" style="height:55px;" class="top">
+    <div class="return">
+      <span>返回</span>
+    </div>
+    <div class="title">忘记密码</div>
+    <div class="login">
+      <span></span>
+    </div>
+  </div>
+  <div style="height:55px;"></div>
+
+  <div class="container-fluid">
+    <ng-form name="fgtForm">
+      <div class="FD line-H4 pad border-b-d bor-gray1">
+        <div class="col-fg-2-2">请输入您的邮箱账号:</div>
+        <div class="col-fg-7-2">
+          <input required name="userName" ng-model="user.userName" type="email" style="width:95%" class="form-control" />    
+        </div>
+      </div>
+      <div class="FD line-H4 pad border-b-d bor-gray1">
+        <div class="col-fg-2-2">发送验证码到您的邮箱账号:<span></span></div>
+        <div class="col-fg-7-2">
+          <button ng-click="sendCode4Email()" ng-disabled="canSend || fgtForm.userName.$invalid" type="button" class="btn btn-success">发送验证码</button><span style="margin-left:5px;" ng-bind="time"></span><span ng-show="canSend">s后可重新发送</span>
+        </div>
+      </div>
+      <div class="FD line-H4 pad border-b-d bor-gray1">
+        <div class="col-fg-2-2">验证码:</div>
+        <div class="col-fg-7-2">
+          <input required name="code" ng-model="user.code" type="text" style="width:95%" class="form-control" />    
+        </div>
+      </div>
+      <div class="FD line-H4 pad border-b-d bor-gray1">
+        <div class="col-fg-2-2">新密码</div>
+        <div class="col-fg-7-2">
+          <input confirm obj="user" required="" name="password" ng-model="user.passWord" type="password" style="width:95%" class="form-control" />
+        </div>
+      </div>
+      <div class="pad border-b-d bor-gray1">
+        <div class="line-H4 FD">
+          <div class="col-fg-2-2">确认密码</div>
+          <div class="col-fg-7-2">
+            <input confirm obj="user" required="" name="confirm" ng-model="user.confirm" type="password" style="width:95%" class="form-control" />
+          </div>
+        </div>
+        <div class="FD">
+          <div class="col-fg-2-2">&nbsp</div>
+          <div ng-show="fgtForm.password.$error.required && fgtForm.confirm.$error.required && fgtForm.password.$dirty" class="col-fg-7-2 tx-red">密码必填</div>
+          <div ng-show="user.checkPwd" class="col-fg-7-2 tx-red">两次输入的密码不相同</div>
+        </div>
+        <!-- <p class="text-primary">忘记密码</p> -->
+      </div>
+      <div class="magn">
+        <button ng-click="updatePwdByCode()" type="submit" ng-disabled="fgtForm.$invalid || user.checkPwd" class="btn btn-warning" style="width:100%">修改密码</button>
+      </div>
+    </ng-form>
+  </div>
+</div>

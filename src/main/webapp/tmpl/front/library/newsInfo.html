@@ -1,0 +1,29 @@
+<!--===top  顶部===-->
+<div ng-controller="newsInfoCtrl">
+  <div ui-sref="lb_news({schoolId:news.schoolId})" class="top">
+   <div class="return">
+      <span>返回</span>
+   </div>
+   <div class="login">
+       <span></span>
+   </div>
+  </div>
+  <div style="height:50px;"></div>
+
+  <!--公告详情-->
+  <div class="border1 bor-gray1 bgd-white pad bd-r2 col-fg-10 pad-b-6">
+     <div class="magn-lr border-b-s1 bor-gray1 FD">
+        <div class="tx-c">
+              <div class="ft-4 line-H3" ng-bind="news.title"></div>
+          </div>
+          <div class="tx-c magn-lr pad">
+              <div class="ft-3 tx-gray line-H2 fudong-date " ng-bind="news.publishDate" style="float:left;"></div>
+              <div class="library fudong-r">图书馆</div>
+              <!-- <button type="button" class="btn-xm btn-info fudong-r">&nbsp;收&nbsp;藏&nbsp;</button> -->
+          </div>
+      </div>
+      <div class="magn-lr line-H3">
+          <div class="tu" ng-bind-html="news.content | trustHtml"></div>
+      </div>
+  </div>
+</div>

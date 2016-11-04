@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.SchooldeptMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Schooldept" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="serviceTime" property="serviceTime" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, deptId, serviceTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from schooldept
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from schooldept
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Schooldept" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into schooldept (schoolId, deptId, 
+      serviceTime)
+    values (#{schoolId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{serviceTime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Schooldept" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into schooldept
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="serviceTime != null" >
+        serviceTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTime != null" >
+        #{serviceTime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Schooldept" >
+    update schooldept
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceTime != null" >
+        serviceTime = #{serviceTime,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Schooldept" >
+    update schooldept
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      serviceTime = #{serviceTime,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getSchoolServiceInfoByUserId" parameterType="int" resultType="com.ugfind.model.SchoolServiceInfo">
+   select 
+   	a.*,b.name as schoolName,c.deptName  
+   from schooldept a 
+   inner join school b on a.schoolId = b.id 
+   inner join dept c on a.deptId = c.id
+   where a.schoolId = (select schoolId from user where id= #{id}) 
+   	and a.deptId = (select deptId from user where id= #{id}) 
+  </select>
+  
+  <select id="getDeptBySchoolId" parameterType="int" resultType="com.ugfind.model.Schooldept">
+  select * from schooldept where schoolId = #{schoolId} and CURDATE() &lt;= serviceTime
+  </select>
+  
+  <!-- 查看学校是否开通了办公区 -->
+  <select id="countOfDept" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+  	 select count(id) from schooldept where schoolId = #{schoolId} and deptId =4 and CURDATE() &lt;= serviceTime
+  </select>
+</mapper>

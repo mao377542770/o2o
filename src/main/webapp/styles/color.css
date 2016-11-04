@@ -1,0 +1,129 @@
+
+.bgd-white{
+	background-color:#fff;
+}
+
+.bgd-black{
+	background-color:black;
+}
+
+.bgd-gray1{
+	background-color:#222;
+}
+.bgd-gray2{
+	background-color:#333;
+}
+.bgd-gray3{
+	background-color:#555;
+}
+.bgd-gray4{
+	background-color:#999;
+}
+.bgd-gray5{
+	background-color:#eee;
+}
+.bgd-gray6{
+	background-color:#fdfdfd;
+}
+.bgd-gray7{
+	background-color:#f7f7f7;
+}
+.bgd-gray8{
+	background-color:#f5f5f5;
+}
+.bgd-gray9{
+	background-color:#fbfbfb;
+}
+
+.bgd-blue{
+	background-color:#003b71;
+}
+.bgd-blue2{
+	background-color:#edf1f6;
+}
+
+.bgd-green{
+	background-color:#5cb85c;
+}
+.bgd-green1{
+	background-color:#ddffc3;
+}
+.bgd-green2{
+	background-color:#cdf4c0;
+}
+.bgd-green3{
+	background-color:#f3ffef;
+}
+
+.bgd-Orange{
+	background-color:#EE491F;
+}
+
+.bgd-red{
+	background-color:#d9534f;
+}
+.bgd-red1{
+	background-color:#f9543e;
+}
+.bgd-red2{
+	background-color:#ffa195;
+}
+.bgd-yellow{
+	background-color:#ffe690;
+}
+.tx-white{
+	color:#fff;
+}
+
+.tx-Orange{
+	color:#EE491F;
+}
+.tx-blue{
+	color:#0697da;
+}
+.tx-blue2{
+	color:#003b71;
+}
+.tx-gray{
+	color:#787878;
+}
+.tx-gray1{
+	color:#686868;
+}
+.tx-gray2{
+	color:#999999;
+}
+.tx-black{
+	color:#222;
+}
+
+.tx-green{
+	color:#5cb85c;
+}
+.tx-green1{
+	color:#093;
+}
+
+.tx-red{
+	color:#d9534f;
+}
+
+.tx-bg-btn{
+	background-color:#EE491F;
+	color:#fff;
+}
+.tx-reply{
+	color:#faa241;
+}
+.tx-question{
+	color:#939393;
+}
+/*会室预约*/
+.rectangle1{background-color:#fff;border: 1px solid #999;}
+
+
+/*老师认证*/
+.header th{background-color:rgb(111,183,255);}
+.header td{color:rgb(132,132,132);}
+.content1 td{background-color:rgb(240,240,240)}
+

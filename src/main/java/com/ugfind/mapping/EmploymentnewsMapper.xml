@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.EmploymentnewsMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.Employmentnews" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="newsImage" property="newsImage" jdbcType="VARCHAR" />
+    <result column="publishDate" property="publishDate" jdbcType="CHAR" />
+    <result column="userId" property="userId" jdbcType="INTEGER" />
+    <result column="publishUser" property="publishUser" jdbcType="VARCHAR" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="viewCount" property="viewCount" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.Employmentnews" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, title, newsImage, publishDate, userId, publishUser, schoolId, viewCount
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from employmentnews
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from employmentnews
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.Employmentnews" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employmentnews (title, newsImage, publishDate, 
+      userId, publishUser, schoolId, 
+      viewCount, content)
+    values (#{title,jdbcType=VARCHAR}, #{newsImage,jdbcType=VARCHAR}, #{publishDate,jdbcType=CHAR}, 
+      #{userId,jdbcType=INTEGER}, #{publishUser,jdbcType=VARCHAR}, #{schoolId,jdbcType=INTEGER}, 
+      #{viewCount,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.Employmentnews" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into employmentnews
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="newsImage != null" >
+        newsImage,
+      </if>
+      <if test="publishDate != null" >
+        publishDate,
+      </if>
+      <if test="userId != null" >
+        userId,
+      </if>
+      <if test="publishUser != null" >
+        publishUser,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="viewCount != null" >
+        viewCount,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="newsImage != null" >
+        #{newsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="publishUser != null" >
+        #{publishUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.Employmentnews" >
+    update employmentnews
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="newsImage != null" >
+        newsImage = #{newsImage,jdbcType=VARCHAR},
+      </if>
+      <if test="publishDate != null" >
+        publishDate = #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="userId != null" >
+        userId = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="publishUser != null" >
+        publishUser = #{publishUser,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="viewCount != null" >
+        viewCount = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.Employmentnews" >
+    update employmentnews
+    set title = #{title,jdbcType=VARCHAR},
+      newsImage = #{newsImage,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      userId = #{userId,jdbcType=INTEGER},
+      publishUser = #{publishUser,jdbcType=VARCHAR},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      viewCount = #{viewCount,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.Employmentnews" >
+    update employmentnews
+    set title = #{title,jdbcType=VARCHAR},
+      newsImage = #{newsImage,jdbcType=VARCHAR},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      userId = #{userId,jdbcType=INTEGER},
+      publishUser = #{publishUser,jdbcType=VARCHAR},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      viewCount = #{viewCount,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+    <!-- 获取本学校的公告总条数 -->
+  <select id="getSchoolNewsCount" parameterType="com.ugfind.model.EmploymentNewsPage" resultType="Integer">
+  		select count(id) from employmentnews where schoolId = #{schoolId,jdbcType=INTEGER}
+  </select>
+  
+  <!-- 分页获取本学校的公告列表 -->
+  <select id="getNewsBypage" parameterType="com.ugfind.model.EmploymentNewsPage" resultMap="ResultMapWithBLOBs">
+  		select 
+  			*
+  		from employmentnews 
+  		where schoolId = #{schoolId,jdbcType=INTEGER}
+  		ORDER BY id DESC LIMIT #{currentIndex},#{itemsPerPage}	
+  </select>
+  
+  <!-- 修改阅读次数 -->
+   <update id="updateNewsViewCount" parameterType="java.lang.Integer">
+    update employmentnews
+    set viewCount = viewCount + 1 where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+</mapper>

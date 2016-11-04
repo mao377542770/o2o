@@ -1,0 +1,316 @@
+body{
+	background: #ebebeb none repeat scroll 0 0;
+}
+img {
+    vertical-align: middle;
+}
+/*首行navbar*/
+.myNav{
+	min-height: 30px;	
+	background-color: #3c8dbc;
+	margin-bottom: 0;
+}
+/**
+ * header样式
+ */
+.site-header {
+    background-color: #3498DB;
+    color: #fff;
+    margin-bottom: 0;
+    position: relative;
+    text-align: center;
+}
+@media screen and (min-width: 768px) {
+.site-header h1 {
+    font-size: 56px;
+    text-shadow: -5px 5px 0 rgba(0, 0, 0, 0.1);
+}
+}
+.site-header p {
+    color: #f4f4f4;
+}
+.site-header .fa {
+    color: #eee;
+    font-size: 24px;
+    position: absolute;
+    right: 25px;
+    top: 15px;
+}
+.site-header .form-group {
+    position: relative;
+}
+.site-header .search {
+    border: 2px solid #5cb7e9;
+    border-radius: 0;
+    box-shadow: none;
+    font-size: 16px;
+    height: auto;
+    padding: 13px 30px;
+    text-align: center;
+}
+.site-header .search:focus {
+    border-color: #498BF4;
+}
+.site-header .search + .fa.onX {
+    cursor: pointer;
+}
+.site-header span {
+    font-size: 14px;
+}
+.btn-shadow {
+    border: 0 none;
+    box-shadow: 0 -4px 0 #337AB7 inset;
+    color: #fff;
+    width: 150px;
+}
+
+.fa {
+    display: inline-block;
+    /*font-family: FontAwesome;*/
+    font-feature-settings: normal;
+    font-kerning: auto;
+    font-language-override: normal;
+    font-size: inherit;
+    font-size-adjust: none;
+    font-stretch: normal;
+    font-style: normal;
+    font-synthesis: weight style;
+    font-variant: normal;
+    font-weight: normal;
+    line-height: 1;
+    text-rendering: auto;
+    transform: translate(0px, 0px);
+}
+
+
+
+.dropdown_minsize{
+	min-width: 160px;
+}
+
+.myNav .navbar-nav>li>a {
+padding-top: 5px;
+padding-bottom: 5px;
+}
+.myNav .navbar-brand {
+height: 30px;
+padding-top: 5px;
+}
+.myNav .navbar-toggle {
+margin-top: 4px;
+margin-bottom: 4px;
+}
+/*人物头像*/
+.online {
+    /*头像细边*/
+    border: 2px solid #00a65a;
+}
+.offline{
+    border: 2px solid #dd4b39;
+}
+.user-image {
+    float: left;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-top: -2px;
+}
+
+/*主页导航菜单*/
+/* main-navigation */
+.main-navigation {
+  text-align: center;
+  background: #ffffff;
+  border-top: 1px solid #ebebeb;
+  margin-bottom: 35px;
+  border-bottom: 2px solid #e1e1e1;
+}
+.main-navigation .menu {
+  padding: 0;
+  margin: 0;
+}
+.main-navigation .menu li {
+  list-style: none;
+  display: inline-block;
+  position: relative;
+}
+.main-navigation .menu li.nav-current {
+  border-bottom: 2px solid #f4645f;
+  margin-bottom: -2px;
+}
+.main-navigation .menu li a {
+  color: #505050;
+  line-height: 4em;
+  display: block;
+  padding: 0 21px;
+}
+.main-navigation .menu li:hover > a {
+  color: #f4645f;
+  text-decoration: none;
+}
+.main-navigation .menu li ul {
+  visibility: hidden;
+  background: #ffffff;
+  text-align: left;
+  padding: 7px 0px;
+  margin: 0;
+  position: absolute;
+  left: 0;
+  top: 120%;
+  width: 200px;
+  z-index: 999;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  -webkit-transition: all 0.2s ease;
+       -o-transition: all 0.2s ease;
+          transition: all 0.2s ease;
+}
+.main-navigation .menu li ul li {
+  display: block;
+  margin: 0;
+}
+.main-navigation .menu li ul li a {
+  line-height: 2.5em;
+  color: #505050;
+}
+.main-navigation .menu li ul:hover > a {
+  color: #f4645f;
+}
+.main-navigation .menu li:hover ul {
+  visibility: visible;
+  opacity: 1;
+  filter: alpha(opacity=100);
+  top: 100%;
+}
+@media (max-width: 767px) {
+  .main-navigation {
+    text-align: left;
+  }
+  .main-navigation .menu li {
+    display: block;
+  }
+  .main-navigation .menu li:hover > a {
+    color: #f4645f;
+    text-decoration: none;
+  }
+  .main-navigation .menu li ul {
+    visibility: visible;
+    padding: 0px 0px 0px 20px;
+    margin: 0;
+    position: relative;
+    top: 0;
+    width: 100%;
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+}
+
+/**
+ * ui-item 样式
+ */
+
+.product-list-in-box > .item {
+    border-bottom: 1px solid #f4f4f4;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 5px 5px;
+    cursor: pointer;
+}
+.product-list-in-box > .item:hover {
+    background-color: #F5F5F5
+}
+.product-list-in-box .product-description:hover{
+  color: #3c8dbc
+}
+
+
+/*最底部公司copy*/
+.copyright {
+    background: #111 none repeat scroll 0 0;
+    border-top: 1px solid #303030;
+    color: #555555;
+    font-size: 13px;
+    padding-bottom: 28px;
+    padding-top: 28px;
+    text-align: center;
+}
+
+/*文字类型*/
+.miaoshu {
+    background-color: #f9f9f9;
+    border: 1px solid #dcdcdc;
+    border-radius: 10px;
+    color: #999999;
+    font-size: 12px;
+    margin: 2px 5px;
+    padding: 6px 10px;
+}
+.font-hs{
+    color: #666;
+    color-size:12px;
+}
+
+/*这是各种文档类型的图片位置*/
+.ic-dir, .ic-doc, .ic-docx, .ic-dps, .ic-epub, .ic-et, .ic-pdf, .ic-pot, .ic-pps, .ic-ppt, .ic-pptx, .ic-rtf, .ic-txt, .ic-vsd, .ic-wps, .ic-xls, .ic-xlsx, .ic-album, .ic-wealth, .ic-ok, .ic-exp {
+    background-image: url("../images/resourceAllPng.png");
+}
+.ic {
+    display: inline-block;
+    font-size: 0;
+    height: 16px;
+    line-height: 9999em;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    vertical-align: -2px;
+    width: 16px;
+}
+.mr5, .mv5, .mhv5 {
+    margin-right: 5px !important;
+}
+.ic-dir {
+    background-position: -193px -970px;
+}
+.ic-doc, .ic-docx {
+    background-position: -193px -991px;
+}
+.ic-dps {
+    background-position: -193px -1012px;
+}
+.ic-epub {
+    background-position: -193px -1033px;
+}
+.ic-et {
+    background-position: -193px -1054px;
+}
+.ic-pdf {
+    background-position: -193px -1075px;
+}
+.ic-pot {
+    background-position: -193px -1096px;
+}
+.ic-pps {
+    background-position: -193px -1117px;
+}
+.ic-ppt, .ic-pptx {
+    background-position: -193px -1138px;
+}
+.ic-rtf {
+    background-position: -193px -1159px;
+}
+.ic-txt {
+    background-position: -193px -1180px;
+}
+.ic-vsd {
+    background-position: -193px -1201px;
+}
+.ic-wps {
+    background-position: -193px -1222px;
+}
+.ic-xls, .ic-xlsx {
+    background-position: -193px -1243px;
+}
+.ic-album {
+    background-position: -193px -1264px;
+}

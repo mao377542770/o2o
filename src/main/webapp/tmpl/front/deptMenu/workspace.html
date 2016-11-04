@@ -1,0 +1,38 @@
+<!-- 办公区 deptId : 4-->
+<div ng-controller="workspaceMenuCtrl">
+    <div class="head" style="overflow:hidden">
+        <ul>
+          <a>
+             <li ng-click="goRoomReservation()">
+                 <div class="icon"><img src="images/meet.png"></div>
+                 <p>会室预约</p>
+             </li>
+          </a>
+          <div class="claer"></div>
+        </ul>
+        <a ng-hide="needOpened" ui-sref="subscribe">
+          <button type="button" class="btn_a magn-tb1 ft-1">申请开通</button>
+        </a>
+    </div>
+
+    <div id="applyModel" class="modal fade bs-example-modal-sm">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">本功能仅老师可以用</h4>
+          </div>
+          <div class="modal-body">
+            <p id="att_p">如果需要申请认证老师,请点击认证按钮</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button id="att_btn" type="button" class="btn btn-primary" data-dismiss="modal" ng-click="toApply()">认证</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+

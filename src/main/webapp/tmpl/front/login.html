@@ -1,0 +1,28 @@
+<!--login-->
+<div ng-controller="loginCtrl">
+    <div class="magn border1 bor-gray1 bgd-white pad bd-r2" style="margin-top:5%;">
+        <div class="magn-tb1 FD line-H4">
+            <div class="col-fg-2">用户名</div>
+            <div class="col-fg-8"><input ng-model="user.userName" class="form-control" maxlength="50" placeholder="邮箱/手机号"/></div>
+        </div>
+        <div class="magn-tb1 FD line-H4">
+            <div class="col-fg-2">密码</div>
+            <div class="col-fg-8"><input type="password" ng-model="user.passWord" class="form-control" /></div>
+        </div>
+    </div>
+    <div class="magn pad-lr FD line-H4">
+        <div class="col-fg-4">
+            <label class="tx-red">
+              <input ng-init="user.remember = true" type="checkbox" ng-model="user.remember"/> 记住密码
+            </label>
+        </div>
+        <div ui-sref="forgetPwd" class="col-fg-4 tx-r tx-blue xiaos fudong-r">忘记密码？</div>
+    </div>
+    <div ng-show="error" class="alert alert-error">
+	  <a class="close" data-dismiss="alert">×</a>
+	  <strong>错误!</strong>账号或密码错误
+	</div>
+    <div class="magn">
+        <button ng-disabled="user.userName == '' || user.userName == null || user.passWord == '' || user.passWord == null" ng-click="login(user)" class="btn btn-primary" style="width:100%">登录</button>
+    </div>
+</div>

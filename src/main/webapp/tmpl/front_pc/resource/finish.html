@@ -1,0 +1,72 @@
+<link rel="stylesheet" type="text/css" href="css/upload.css">
+<style type="text/css">
+.dui-size{
+	width: 150px;
+}
+</style>
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="box box-success">
+			<div class="box-header with-border">
+				<h3 class="box-title">上传文档</h3>
+			</div>
+			<!-- /.box-header -->	
+			<div class="box-body">
+
+				<div id="upload-widget" class="clearfix">
+					<div class="upload-steps clearfix">
+						<ul>
+							<li class="step-num active">
+								1
+								<span class="tips">上传文档</span>
+							</li>
+							<li class="step-bar active"></li>
+							<li class="step-num active">
+								2
+								<span class="tips">补全信息</span>
+							</li>
+							<li class="step-bar active"></li>
+							<li class="step-num active">
+								3
+								<span class="tips">完成上传</span>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<hr style="margin:50px 20px;">
+				
+				<div class="clearfix col-sm-offset-1 col-sm-10">
+					<h2 class="text-center text-success"><img class="dui-size" src="images/duigou.png" alt="">恭喜你,上传成功!</h2>
+					<div class="text-center"><a onclick="toUrl()">页面<span id="num"></span>秒后将跳转,您可以点击这里进行跳转</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+var url = hostPath+"/resource#/index";
+var num = 4;
+var time = null;
+$(function(){
+	delayURL(url);
+})
+
+function delayURL(url){		
+	time = setInterval(function(){
+		num--;
+		$('#num').html(num);
+		if(num <= 0){
+			num = 4;
+			clearInterval(time);
+			location.href = url;
+		}
+	},1000);
+}
+
+function toUrl(){
+	location.href = url;
+}
+</script>

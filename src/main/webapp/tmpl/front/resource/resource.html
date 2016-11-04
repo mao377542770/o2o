@@ -1,0 +1,45 @@
+<link rel="stylesheet" href="css/animate.min.css">
+<link rel="stylesheet" href="css/resource.css">
+<div ng-controller="resourceCtrl" ng-click="closeSearch($event)">
+    <div class="top">
+       <div ui-sref="index" class="return">
+          <span>返回</span>
+       </div>
+       <div class="title">
+          <span>文献资料</span>
+          <input stop search="toSearch()" ng-model="keyWord" type="text" class="form-control searchInpt" ng-class="{'search-anm':searchState,'search-anm_end':!searchState}" placeholder="搜索资源">
+       </div>
+       <div ng-click="showSearch($event)" class="sc">
+       </div>
+       <embed class="svg-size" src="images/search.svg" type="image/svg+xml"/>
+    </div>
+    <!--===top  顶部===-->
+    <div class="FD tx-c bgd-white" style="line-height:50px;font-size:16px; position:fixed; top:50px; width:100%;">
+        <div class="f_box tm">
+            <div ng-click="getNewResource()" class="p_box zx border-b-s bor-gray" ng-class="{'tx-blue border-b-s2 bor-018':selectState}">最新</div>
+            <div typeState="false" class="p_box">
+              <div stop ng-class="{'tx-blue border-b-s2 bor-018':!selectState}" class="zx border-b-s bor-gray" ng-click="typeState = true" ng-bind="typeName"></div>
+              <ul class="ul-border pull-right p_box" ng-class="{'fadeInDown animated':typeState,'hide':!typeState}">
+                <li class="li_active" ng-repeat="resourceType in resourceTypeList" ng-bind="resourceType.typeName" ng-click="selectTheType(resourceType)"></li>
+              </ul>
+            </div>
+        </div>
+    </div>
+    <div style="height:100px;"></div>
+    
+    <div infinite-scroll='reddit.nextPage()' infinite-scroll-disabled='reddit.busy' infinite-scroll-distance='0' class="container-fluid pad-b-6 magn" style="padding-right: 15px;padding-left: 15px">
+        <div ui-sref="resourceInfo({id:resource.id})" style="margin-top:5px" ng-repeat="resource in resourceList" class="row xuxian">
+            <div class="pull-left" style="width:97%;">
+              <div>
+                <div class="pull-left" ng-bind="resource.title"></div>
+                <embed class="down pull-right" src="images/down.svg"/>
+              </div>
+              <div class="clear" style="clear:both;"></div>
+              <div>
+                <span class="wz pull-left" ng-bind="resource.date | date:'yyyy-MM-dd HH:mm:ss'"></span>
+                <span class="wz pull-right" ng-bind="resource.typeName"></span>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>

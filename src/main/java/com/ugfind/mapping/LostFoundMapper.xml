@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ugfind.dao.LostFoundMapper" >
+  <resultMap id="BaseResultMap" type="com.ugfind.model.LostFound" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="schoolId" property="schoolId" jdbcType="INTEGER" />
+    <result column="deptId" property="deptId" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="publishUser" property="publishUser" jdbcType="INTEGER" />
+    <result column="publishDate" property="publishDate" jdbcType="CHAR" />
+    <result column="publisher" property="publisher" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="claimDate" property="claimDate" jdbcType="CHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ugfind.model.LostFound" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, schoolId, deptId, title, publishUser, publishDate, publisher, state, claimDate, remark
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from lost_found
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lost_found
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ugfind.model.LostFound" >
+    insert into lost_found (id, schoolId, deptId, 
+      title, publishUser, publishDate, 
+      publisher, state, claimDate, remark, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{schoolId,jdbcType=INTEGER}, #{deptId,jdbcType=INTEGER}, 
+      #{title,jdbcType=VARCHAR}, #{publishUser,jdbcType=INTEGER}, #{publishDate,jdbcType=CHAR}, 
+      #{publisher,jdbcType=VARCHAR}, #{state,jdbcType=INTEGER}, #{claimDate,jdbcType=CHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ugfind.model.LostFound" >
+    insert into lost_found
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="schoolId != null" >
+        schoolId,
+      </if>
+      <if test="deptId != null" >
+        deptId,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="publishUser != null" >
+        publishUser,
+      </if>
+      <if test="publishDate != null" >
+        publishDate,
+      </if>
+      <if test="publisher != null" >
+        publisher,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="claimDate != null" >
+        claimDate,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="schoolId != null" >
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUser != null" >
+        #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null" >
+        #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null" >
+        #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="claimDate != null" >
+        #{claimDate,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ugfind.model.LostFound" >
+    update lost_found
+    <set >
+      <if test="schoolId != null" >
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="deptId != null" >
+        deptId = #{deptId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="publishUser != null" >
+        publishUser = #{publishUser,jdbcType=INTEGER},
+      </if>
+      <if test="publishDate != null" >
+        publishDate = #{publishDate,jdbcType=CHAR},
+      </if>
+      <if test="publisher != null" >
+        publisher = #{publisher,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="claimDate != null" >
+        claimDate = #{claimDate,jdbcType=CHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ugfind.model.LostFound" >
+    update lost_found
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      claimDate = #{claimDate,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ugfind.model.LostFound" >
+    update lost_found
+    set schoolId = #{schoolId,jdbcType=INTEGER},
+      deptId = #{deptId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      publishUser = #{publishUser,jdbcType=INTEGER},
+      publishDate = #{publishDate,jdbcType=CHAR},
+      publisher = #{publisher,jdbcType=VARCHAR},
+      state = #{state,jdbcType=INTEGER},
+      claimDate = #{claimDate,jdbcType=CHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 以下是自己所加 -->
+   <resultMap type="com.ugfind.model.LostFoundVo" id="voResultMap" extends="ResultMapWithBLOBs">
+  	<result property="deptName" column="deptName"/>
+  	<result property="schoolName" column="schoolName"/>
+  </resultMap>
+  <!-- 获取列表未认领 -->
+  <select id="getLostFoundList" resultMap="voResultMap" parameterType="com.ugfind.model.LostFoundConfig" >
+    select a.*,b.name as schoolName,c.deptName
+    from lost_found a
+    left join school b on a.schoolId = b.id
+    left join dept c on a.deptId = c.id
+    where a.schoolId = #{schoolId,jdbcType=INTEGER}
+    <if test="deptId != null">
+    	and a.deptId = #{deptId,jdbcType=INTEGER}
+    </if>
+    <if test="state != null">
+    	and a.state = #{state,jdbcType=INTEGER}
+    </if>
+   	ORDER BY a.publishDate DESC LIMIT #{currentIndex},#{itemsPerPage}
+  </select>
+  
+  <!-- 获取列表未认领 -->
+  <select id="getLostFoundListRemark" resultMap="voResultMap" parameterType="com.ugfind.model.LostFoundConfig" >
+    select a.*,b.name as schoolName,c.deptName
+    from lost_found a
+    left join school b on a.schoolId = b.id
+    left join dept c on a.deptId = c.id
+    where a.schoolId = #{schoolId,jdbcType=INTEGER}
+    <if test="deptId != null">
+    	and a.deptId = #{deptId,jdbcType=INTEGER}
+    </if>
+    <if test="state != null">
+    	and a.state = #{state,jdbcType=INTEGER}
+    </if>
+   	ORDER BY a.claimDate DESC LIMIT #{currentIndex},#{itemsPerPage}
+  </select>
+  
+  <!-- 获取数量 -->
+  <select id="getLostFoundCount" parameterType="com.ugfind.model.LostFoundConfig" resultType="Integer">
+  	SELECT count(id) count FROM lost_found
+  	WHERE schoolId = #{schoolId,jdbcType=INTEGER}
+  	<if test="deptId != null">
+    	and deptId = #{deptId,jdbcType=INTEGER}
+    </if>
+    <if test="state != null">
+    	and state = #{state,jdbcType=INTEGER}
+    </if>
+  </select>
+</mapper>
